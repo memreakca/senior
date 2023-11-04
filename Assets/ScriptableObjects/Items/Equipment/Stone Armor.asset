@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8312cd29da34e874e9c744e190d2b731, type: 3}
+  m_Name: Stone Armor
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 8696888431408810253, guid: 55ea6b68315e7334098bfd42e8081603, type: 3}
+  type: 1
+  description: Stone armor that defend you from attacks
+  defenceBonus: 30
+  level: 1
