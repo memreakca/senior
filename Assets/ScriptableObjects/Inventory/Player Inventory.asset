@@ -12,18 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7e49e49b25102f458a4271f14dc6277, type: 3}
   m_Name: Player Inventory
   m_EditorClassIdentifier: 
-  Container:
-  - item: {fileID: 11400000, guid: ce1a59df0b2f63f41afe84e14e6aefc2, type: 2}
-    amount: 31
-  - item: {fileID: 11400000, guid: c8f8970234bd7214f9e607a71ff5f160, type: 2}
-    amount: 38
-  - item: {fileID: 11400000, guid: c8f8970234bd7214f9e607a71ff5f160, type: 2}
-    amount: 35
-  - item: {fileID: 11400000, guid: c8f8970234bd7214f9e607a71ff5f160, type: 2}
-    amount: 35
-  - item: {fileID: 11400000, guid: c8f8970234bd7214f9e607a71ff5f160, type: 2}
-    amount: 35
-  - item: {fileID: 11400000, guid: c8f8970234bd7214f9e607a71ff5f160, type: 2}
-    amount: 35
-  - item: {fileID: 11400000, guid: c8f8970234bd7214f9e607a71ff5f160, type: 2}
-    amount: 35
+  savePath: /Inventory.Save
+  database: {fileID: 11400000, guid: 1d1473eb548750d4a8d78faeb13540a0, type: 2}
+  Container: []
