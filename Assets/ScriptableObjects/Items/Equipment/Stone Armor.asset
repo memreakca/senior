@@ -12,8 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8312cd29da34e874e9c744e190d2b731, type: 3}
   m_Name: Stone Armor
   m_EditorClassIdentifier: 
-  prefab: {fileID: 8696888431408810253, guid: 55ea6b68315e7334098bfd42e8081603, type: 3}
+  isStackable: 0
+  id: 2
+  uiDisplay: {fileID: 951607776, guid: f8f89eaa02fee154fa0197bf20a43605, type: 3}
   type: 1
   description: Stone armor that defend you from attacks
-  defenceBonus: 30
-  level: 1
+  buffs:
+  - attribute: 0
+    value: 0
+    min: 200
+    max: 1000
+  - attribute: 1
+    value: 0
+    min: 2
+    max: 12
+  - attribute: 2
+    value: 0
+    min: 2
+    max: 12

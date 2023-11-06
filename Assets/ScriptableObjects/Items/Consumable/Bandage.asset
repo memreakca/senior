@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251334f1f4bfbd242a74cae5f76e17bc, type: 3}
   m_Name: Bandage
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1204623475543600173, guid: 4b9350277105c0e41bef2ad29f91f1b0, type: 3}
+  isStackable: 1
+  id: 0
+  uiDisplay: {fileID: 1897062749, guid: f8f89eaa02fee154fa0197bf20a43605, type: 3}
   type: 0
   description: Restores Health
-  restoreHealthValue: 20
+  buffs: []

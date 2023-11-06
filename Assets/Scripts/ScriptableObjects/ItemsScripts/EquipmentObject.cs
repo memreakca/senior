@@ -5,10 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Equipment Object", menuName = "Inventory System/Items/Equipment")]
 public class EquipmentObject : ItemObject
 {
-    public float defenceBonus;
-    public int level;
+
     public void Awake()
     {
+
         type = ItemType.Equipment;
     }
 }

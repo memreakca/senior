@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 033d2f6e7427a7f49be122d3cc53ddf0, type: 3}
   m_Name: Leaves
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1182436495747633996, guid: cefb1e870028c0f48aee725c283064f1, type: 3}
+  isStackable: 1
+  id: 1
+  uiDisplay: {fileID: -47461832, guid: f8f89eaa02fee154fa0197bf20a43605, type: 3}
   type: 3
   description: Leaves , use for crafting bandage
+  buffs: []
