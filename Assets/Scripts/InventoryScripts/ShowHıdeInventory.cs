@@ -10,7 +10,6 @@ public class ShowHıdeInventory : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            Debug.Log("is toggled");
             ToggleInventory();
         }
     }
