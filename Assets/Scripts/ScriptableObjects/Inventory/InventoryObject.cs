@@ -41,13 +41,28 @@ public class InventoryObject : ScriptableObject
         item1.UpdateSlot(temp.ID,temp.item, temp.amount);
     }
 
-    public void RemoveItem(Item _item)
+    public void RemoveItem(Item _item )
     {
         for (int i = 0; i < Container.Items.Length; i++)
         {
             if (Container.Items[i].item == _item)
             {
                 Container.Items[i].UpdateSlot(-1, null, 0);
+            }
+        }
+    }
+    public void RemoveAmount(Item _item , int _amount )
+    {
+        for (int i = 0; i < Container.Items.Length; i++)
+        {
+            if (Container.Items[i].ID == _item.Id)
+            {
+                Container.Items[i].RemoveAmount(_amount);
+            }
+
+            if (Container.Items[i].ID == _item.Id && Container.Items[i].amount == 0) 
+            {
+                RemoveItem(_item);
             }
         }
     }
@@ -141,4 +156,19 @@ public class InventorySlot
     {
         amount += value;
     }
+
+    public void RemoveAmount(int value)
+    {
+        if (amount >= value)
+        {
+            amount -= value;
+        }
+        else
+        {
+            Debug.Log("not enough ingredients");
+        }
+        
+    }
+    
+
 }

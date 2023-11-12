@@ -5,7 +5,8 @@ using UnityEngine;
 public class ShowHıdeInventory : MonoBehaviour
 {
     public GameObject inventoryUI;
-    public bool isInventoryVisible=false;
+    public GameObject CraftingUI;
+    public bool isInventoryVisible;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
@@ -14,9 +15,12 @@ public class ShowHıdeInventory : MonoBehaviour
         }
     }
 
+
     public void ToggleInventory()
     {
+       
         isInventoryVisible = !isInventoryVisible;
         inventoryUI.SetActive(isInventoryVisible);
+        CraftingUI.SetActive(false);
     }
 }
