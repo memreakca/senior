@@ -9,12 +9,14 @@ public class CraftRecipeObject : ScriptableObject
     public Sprite uiDisplay;
     public Item result;
     public Ingredient[] ingredients;
-   
+    public InventoryObject inventoryObject;
     public bool CanCraft()
     {
         foreach (Ingredient ingredient in ingredients)
         {
-            bool containsCurrentIngredient = InventoryObject.instance.ContainsItem(ingredient.item, ingredient.amount);
+            
+            bool containsCurrentIngredient = inventoryObject.ContainsItem(ingredient.item, ingredient.amount);
+          
             if (!containsCurrentIngredient)
             {
                 return false;
@@ -27,7 +29,7 @@ public class CraftRecipeObject : ScriptableObject
     {
         foreach (Ingredient ingredient in ingredients)
         {
-            InventoryObject.instance.RemoveAmount(ingredient.item, ingredient.amount);
+            inventoryObject.RemoveAmount(ingredient.item, ingredient.amount);
         }
     }
     public void Craft()
@@ -36,7 +38,7 @@ public class CraftRecipeObject : ScriptableObject
         {
             RemoveIngredientsFromInventory();
 
-            InventoryObject.instance.AddItem(result, 1);
+            inventoryObject.AddItem(result, 1);
             Debug.Log("You Crafted a : " + result.Name);
         }
         else Debug.Log("You Dont Have Enough Ingredients");
@@ -47,4 +49,4 @@ public class Ingredient
 {
     public Item item;
     public int amount;
-}
+}                                                                                                                                                                            

@@ -30,6 +30,7 @@ public class DisplayInventory : MonoBehaviour
     private void Update()
     {
         UpdateSlots();
+        inventory.RemoveAmountlessItem();
     }
   
     public void CreateSlots()

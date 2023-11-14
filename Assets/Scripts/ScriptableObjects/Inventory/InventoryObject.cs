@@ -10,16 +10,12 @@ using System.Runtime.Serialization;
 [CreateAssetMenu(fileName = "New Inventory",menuName ="Inventory System/Inventory")]
 public class InventoryObject : ScriptableObject 
 {
-    public static InventoryObject instance;
+
     public string savePath;
     public ItemDatabaseObject database;
     public Inventory Container;
 
-    private void Awake()
-    {
-        if (instance == null)
-            instance = this;
-    }
+ 
     public void AddItem(Item _item,int _amount)
     {
 
@@ -78,10 +74,15 @@ public class InventoryObject : ScriptableObject
             {
                 Container.Items[i].RemoveAmount(_amount);
             }
-
-            if (Container.Items[i].ID == _item.Id && Container.Items[i].amount == 0) 
+        }
+    }
+    public void RemoveAmountlessItem()
+    {
+        for (int i = 0; i < Container.Items.Length; i++)
+        {
+            if (Container.Items[i].amount <= 0)
             {
-                RemoveItem(_item);
+                Container.Items[i].UpdateSlot(-1, null, 0);
             }
         }
     }

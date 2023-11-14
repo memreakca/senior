@@ -22,6 +22,66 @@ MonoBehaviour:
         Id: 0
         buffs: []
       amount: 0
+    - ID: 2
+      item:
+        Name: Stone Armor
+        Id: 2
+        buffs:
+        - attribute: 0
+          value: 386
+          min: 200
+          max: 1000
+        - attribute: 1
+          value: 4
+          min: 2
+          max: 12
+        - attribute: 2
+          value: 8
+          min: 2
+          max: 12
+      amount: 1
+    - ID: 0
+      item:
+        Name: Bandage
+        Id: 0
+        buffs: []
+      amount: 4
+    - ID: 2
+      item:
+        Name: Stone Armor
+        Id: 2
+        buffs:
+        - attribute: 0
+          value: 893
+          min: 200
+          max: 1000
+        - attribute: 1
+          value: 11
+          min: 2
+          max: 12
+        - attribute: 2
+          value: 8
+          min: 2
+          max: 12
+      amount: 1
+    - ID: 2
+      item:
+        Name: Stone Armor
+        Id: 2
+        buffs:
+        - attribute: 0
+          value: 626
+          min: 200
+          max: 1000
+        - attribute: 1
+          value: 7
+          min: 2
+          max: 12
+        - attribute: 2
+          value: 10
+          min: 2
+          max: 12
+      amount: 1
     - ID: -1
       item:
         Name: 
@@ -34,42 +94,30 @@ MonoBehaviour:
         Id: 0
         buffs: []
       amount: 0
-    - ID: -1
+    - ID: 2
       item:
-        Name: 
-        Id: 0
-        buffs: []
-      amount: 0
-    - ID: -1
+        Name: Stone Armor
+        Id: 2
+        buffs:
+        - attribute: 0
+          value: 888
+          min: 200
+          max: 1000
+        - attribute: 1
+          value: 2
+          min: 2
+          max: 12
+        - attribute: 2
+          value: 7
+          min: 2
+          max: 12
+      amount: 1
+    - ID: 1
       item:
-        Name: 
-        Id: 0
+        Name: Leaves
+        Id: 1
         buffs: []
-      amount: 0
-    - ID: -1
-      item:
-        Name: 
-        Id: 0
-        buffs: []
-      amount: 0
-    - ID: -1
-      item:
-        Name: 
-        Id: 0
-        buffs: []
-      amount: 0
-    - ID: -1
-      item:
-        Name: 
-        Id: 0
-        buffs: []
-      amount: 0
-    - ID: -1
-      item:
-        Name: 
-        Id: 0
-        buffs: []
-      amount: 0
+      amount: 1
     - ID: -1
       item:
         Name: 

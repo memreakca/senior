@@ -24,3 +24,4 @@ MonoBehaviour:
       Id: 1
       buffs: []
     amount: 2
+  inventoryObject: {fileID: 11400000, guid: f77c89eda7cc7c141bc53bbaa577a5f0, type: 2}
