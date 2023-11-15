@@ -10,5 +10,22 @@ using UnityEngine.UI;
 
 public class DisplayCraftigScreen : MonoBehaviour
 {
+    [SerializeField] private RecipeListObject recipeSO;
+    [SerializeField] private GameObject recipePrefab;
+    [SerializeField] RectTransform recipeListContent;
 
+    private void Start()
+    {
+        createRecipeTab();
+    }
+    private void createRecipeTab()
+    {
+        foreach (CraftRecipeObject item in recipeSO.recipeList)
+        {
+            var obj = Instantiate(recipePrefab, Vector3.zero, Quaternion.identity);
+            obj.transform.SetParent(recipeListContent);
+            obj.transform.GetComponentInChildren<Image>().sprite = item.uiDisplay;
+            obj.transform.GetComponentInChildren<TextMeshProUGUI>().text = item.result.Name;
+        }
+    }
 }

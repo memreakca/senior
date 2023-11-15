@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BandageRecipe
   m_EditorClassIdentifier: 
   Name: Bandage
-  uiDisplay: {fileID: 0}
+  uiDisplay: {fileID: 1897062749, guid: f8f89eaa02fee154fa0197bf20a43605, type: 3}
   result:
     Name: Bandage
     Id: 0
