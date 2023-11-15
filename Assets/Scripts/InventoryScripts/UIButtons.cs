@@ -9,12 +9,10 @@ public class UIButtons : MonoBehaviour
     public void InvButtonClick()
     {
         InvUI.SetActive(true);
-        CraftUI.SetActive(false);
     }
 
     public void CraftButtonClick()
     {
-        InvUI.SetActive(false);
         CraftUI.SetActive(true);
     }
 }

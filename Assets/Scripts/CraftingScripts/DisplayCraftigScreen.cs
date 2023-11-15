@@ -24,7 +24,7 @@ public class DisplayCraftigScreen : MonoBehaviour
         {
             var obj = Instantiate(recipePrefab, Vector3.zero, Quaternion.identity);
             obj.transform.SetParent(recipeListContent);
-            obj.transform.GetComponentInChildren<Image>().sprite = item.uiDisplay;
+            obj.transform.GetComponentsInChildren<Image>()[1].sprite = item.uiDisplay;
             obj.transform.GetComponentInChildren<TextMeshProUGUI>().text = item.result.Name;
         }
     }

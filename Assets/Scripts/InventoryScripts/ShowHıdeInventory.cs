@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ShowHıdeInventory : MonoBehaviour
 {
-    public GameObject inventoryUI;
-    public GameObject CraftingUI;
+    [SerializeField] public GameObject CraftingUI;
+    [SerializeField] public GameObject inventoryUI;
+    
     public bool isInventoryVisible;
     void Update()
     {
@@ -18,9 +19,9 @@ public class ShowHıdeInventory : MonoBehaviour
 
     public void ToggleInventory()
     {
-       
+        CraftingUI.SetActive(false);
         isInventoryVisible = !isInventoryVisible;
         inventoryUI.SetActive(isInventoryVisible);
-        CraftingUI.SetActive(false);
+        
     }
 }
