@@ -1,31 +1,64 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class DisplayCraftigScreen : MonoBehaviour
 {
     [SerializeField] private RecipeListObject recipeSO;
     [SerializeField] private GameObject recipePrefab;
     [SerializeField] RectTransform recipeListContent;
-
+    [SerializeField] private GameObject ingredientsPrefab;
+    [SerializeField] Image resultContent;
+    [SerializeField] RectTransform ingredientsContent;
+    [SerializeField] Button craftButton;
     private void Start()
     {
+        craftButton.enabled = false;
+        resultContent.GetComponent<Image>().color = new Color(1, 1, 1, 0);
         createRecipeTab();
     }
     private void createRecipeTab()
     {
-        foreach (CraftRecipeObject item in recipeSO.recipeList)
+        for (int i = 0; i < recipeSO.recipeList.Count ; i++)
         {
+            var item = recipeSO.recipeList[i];
             var obj = Instantiate(recipePrefab, Vector3.zero, Quaternion.identity);
             obj.transform.SetParent(recipeListContent);
             obj.transform.GetComponentsInChildren<Image>()[1].sprite = item.uiDisplay;
             obj.transform.GetComponentInChildren<TextMeshProUGUI>().text = item.result.Name;
+
+            obj.transform.GetComponent<Button>().onClick.AddListener(displayIngredients);
+
+            void displayIngredients()
+            {
+                craftButton.enabled = true;
+                resultContent.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+                resultContent.sprite = item.uiDisplay;
+
+                foreach(Transform child in ingredientsContent.transform)
+                {
+                    Destroy(child.gameObject);
+                }
+                for (int i = 0; i < item.ingredients.Length; i++)
+                {
+                    
+                    var ingobj = Instantiate(ingredientsPrefab, Vector3.zero, Quaternion.identity);
+                    ingobj.transform.SetParent(ingredientsContent);
+                }
+
+                craftButton.onClick.AddListener(item.Craft);
+                
+            }
         }
     }
+
+    
 }

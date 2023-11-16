@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8312cd29da34e874e9c744e190d2b731, type: 3}
   m_Name: Stone Armor
   m_EditorClassIdentifier: 
-  isStackable: 0
   id: 2
   uiDisplay: {fileID: 951607776, guid: f8f89eaa02fee154fa0197bf20a43605, type: 3}
   type: 1
