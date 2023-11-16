@@ -12,6 +12,7 @@ using static UnityEditor.Progress;
 
 public class DisplayCraftigScreen : MonoBehaviour
 {
+    [SerializeField] private ItemDatabaseObject itemDatabase;
     [SerializeField] private RecipeListObject recipeSO;
     [SerializeField] private GameObject recipePrefab;
     [SerializeField] RectTransform recipeListContent;
@@ -49,9 +50,11 @@ public class DisplayCraftigScreen : MonoBehaviour
                 }
                 for (int i = 0; i < item.ingredients.Length; i++)
                 {
-                    
+
                     var ingobj = Instantiate(ingredientsPrefab, Vector3.zero, Quaternion.identity);
                     ingobj.transform.SetParent(ingredientsContent);
+                    ingobj.transform.GetComponentInChildren<Image>().sprite = itemDatabase.Items[item.ingredients[i].item.Id].uiDisplay;
+                    ingobj.transform.GetComponentInChildren<TextMeshProUGUI>().text = item.ingredients[i].amount.ToString();
                 }
 
                 craftButton.onClick.AddListener(item.Craft);
