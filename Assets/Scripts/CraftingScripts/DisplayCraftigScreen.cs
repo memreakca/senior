@@ -56,7 +56,7 @@ public class DisplayCraftigScreen : MonoBehaviour
 
             var ingobj = Instantiate(ingredientsPrefab, Vector3.zero, Quaternion.identity);
             ingobj.transform.SetParent(ingredientsContent);
-            ingobj.transform.GetComponentInChildren<Image>().sprite = itemDatabase.Items[item.ingredients[i].item.Id].uiDisplay;
+            ingobj.transform.GetComponentsInChildren<Image>()[1].sprite = itemDatabase.Items[item.ingredients[i].item.Id].uiDisplay;
             ingobj.transform.GetComponentInChildren<TextMeshProUGUI>().text = item.ingredients[i].amount.ToString();
         }
 
