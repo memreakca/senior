@@ -9,23 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8312cd29da34e874e9c744e190d2b731, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e0d95d0021cf9448b84521c6efd3297, type: 3}
   m_Name: Stone Armor
   m_EditorClassIdentifier: 
-  id: 2
   uiDisplay: {fileID: 951607776, guid: f8f89eaa02fee154fa0197bf20a43605, type: 3}
+  stackable: 0
   type: 1
-  description: Stone armor that defend you from attacks
-  buffs:
-  - attribute: 0
-    value: 0
-    min: 200
-    max: 1000
-  - attribute: 1
-    value: 0
-    min: 2
-    max: 12
-  - attribute: 2
-    value: 0
-    min: 2
-    max: 12
+  description: 
+  data:
+    Name: Stone Armor
+    Id: 2
+    buffs: []

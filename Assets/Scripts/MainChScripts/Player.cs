@@ -5,14 +5,18 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public InventoryObject inventory;
-
+    public InventoryObject equipment;
     private void OnTriggerEnter(Collider other)
     {
-        var item = other.GetComponent<GroundItem>();
-        if (item)
+        var groundItem = other.GetComponent<GroundItem>();
+        if (groundItem)
         {
-            inventory.AddItem(new Item(item.item), 1);
-            Destroy(other.gameObject);
+            Item _item = new Item(groundItem.item);
+            if (inventory.AddItem(_item, 1))
+            {
+                Destroy(other.gameObject);
+            }
+            
         }
     }
 
@@ -21,15 +25,18 @@ public class Player : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space)) 
         {
             inventory.Save();
+            equipment.Save();
         }
         if (Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             inventory.Load();
+            equipment.Load();
         }
 
     }
     private void OnApplicationQuit()
     {
-        inventory.Container.Items = new InventorySlot[30];
+        inventory.Container.Clear();
+        inventory.Container.Clear();
     }
 }
