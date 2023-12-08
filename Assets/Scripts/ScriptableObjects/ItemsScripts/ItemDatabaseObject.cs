@@ -9,7 +9,7 @@ public class ItemDatabaseObject : ScriptableObject , ISerializationCallbackRecei
     public ItemObject[] Items;
 
     [ContextMenu("Update ID's")]
-    public void UpdateId()
+    public void UpdateID()
     {
         for (int i = 0; i < Items.Length; i++)
         {
@@ -24,6 +24,11 @@ public class ItemDatabaseObject : ScriptableObject , ISerializationCallbackRecei
 
     public void OnAfterDeserialize()
     {
-        UpdateId();
+        //for (int i = 0; i < Items.Length; i++)
+        //{
+        //    Items[i].data.Id = i;
+        //    GetItem.Add(i, Items[i]);
+        //}
+        UpdateID();
     }
 }

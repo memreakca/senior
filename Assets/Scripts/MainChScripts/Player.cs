@@ -12,11 +12,9 @@ public class Player : MonoBehaviour
         if (groundItem)
         {
             Item _item = new Item(groundItem.item);
-            if (inventory.AddItem(_item, 1))
-            {
-                Destroy(other.gameObject);
-            }
+            inventory.AddItem(_item, 1);
             
+            Destroy(other.gameObject);
         }
     }
 
@@ -37,6 +35,6 @@ public class Player : MonoBehaviour
     private void OnApplicationQuit()
     {
         inventory.Container.Clear();
-        inventory.Container.Clear();
+        equipment.Container.Clear();
     }
 }

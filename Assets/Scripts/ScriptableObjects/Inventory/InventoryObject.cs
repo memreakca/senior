@@ -6,6 +6,7 @@ using System.IO;
 using UnityEditor;
 using JetBrains.Annotations;
 using System.Runtime.Serialization;
+using static UnityEditor.Progress;
 
 [CreateAssetMenu(fileName = "New Inventory",menuName ="Inventory System/Inventory")]
 public class InventoryObject : ScriptableObject 
@@ -15,45 +16,35 @@ public class InventoryObject : ScriptableObject
     public ItemDatabaseObject database;
     public Inventory Container;
 
- 
-    public bool AddItem(Item _item,int _amount)
-    {
-        if (EmptySlotCount <= 0)
-            return false;
-        InventorySlot slot = FindItemOnInventory(_item);
-        if (!database.Items[_item.Id].stackable || slot == null)
-        {
-            SetEmptySlot(_item, _amount);
-            return true;
-        }
-        slot.AddAmount(_amount);
-        return true;
-    }
-    public int EmptySlotCount
-    {
-        get
-        {
-            int counter = 0;
-            for (int i = 0; i < Container.Items.Length; i++)
-            {
-                if (Container.Items[i].item.Id <= -1)
-                {
-                    counter++;
-                }
-            }
-            return counter;
-        }
-    }
-    public InventorySlot FindItemOnInventory(Item _item)
+    public void AddItem(Item _item, int _amount)
     {
         for (int i = 0; i < Container.Items.Length; i++)
         {
-            if (Container.Items[i].item.Id == _item.Id)
+            if (database.Items[_item.Id].stackable)
             {
-                return Container.Items[i];
+
+                for (int j = 0; j < Container.Items.Length; j++)
+                {
+
+                    if (Container.Items[j].ItemID == _item.Id)
+                    {
+                        Container.Items[j].AddAmount(_amount);
+                        return;
+                    }
+
+                }
             }
+
+            if (Container.Items[i].ItemID <= -1)
+            {
+
+                Container.Items[i].UpdateSlot(_item.Id, _item, _amount);
+                return;
+            }
+
+
         }
-        return null;
+        Debug.Log("Inventory Full");
     }
 
     public bool ContainsItem(Item _item, int _amount)
@@ -61,7 +52,7 @@ public class InventoryObject : ScriptableObject
 
         for (int i = 0; i < Container.Items.Length; i++)
         {
-            if (Container.Items[i].item.Id == _item.Id && Container.Items[i].amount >= _amount)
+            if (Container.Items[i].ItemID == _item.Id && Container.Items[i].amount >= _amount)
             {
                 return true;
             }
@@ -73,9 +64,9 @@ public class InventoryObject : ScriptableObject
     {
         if(item2.CanPlaceInSlot(item1.ItemObject) && item1.CanPlaceInSlot(item2.ItemObject))
         {
-            InventorySlot temp = new InventorySlot( item2.item, item2.amount);
-            item2.UpdateSlot( item1.item, item1.amount);
-            item1.UpdateSlot( temp.item, temp.amount);
+            InventorySlot temp = new InventorySlot(item2.ItemID,item2.item, item2.amount);
+            item2.UpdateSlot(item1.ItemID, item1.item, item1.amount);
+            item1.UpdateSlot(temp.ItemID, temp.item, temp.amount);
         } 
     }
 
@@ -85,7 +76,7 @@ public class InventoryObject : ScriptableObject
         {
             if (Container.Items[i].item == _item)
             {
-                Container.Items[i].UpdateSlot( null, 0);
+                Container.Items[i].UpdateSlot(-1,null, 0);
             }
         }
     }
@@ -93,7 +84,7 @@ public class InventoryObject : ScriptableObject
     {
         for (int i = 0; i < Container.Items.Length; i++)
         {
-            if (Container.Items[i].item.Id == _item.Id)
+            if (Container.Items[i].ItemID == _item.Id)
             {
                 Container.Items[i].RemoveAmount(_amount);
             }
@@ -105,7 +96,7 @@ public class InventoryObject : ScriptableObject
         {
             if (Container.Items[i].amount <= 0)
             {
-                Container.Items[i].UpdateSlot( null, 0);
+                Container.Items[i].UpdateSlot(-1, null, 0);
             }
         }
     }
@@ -113,9 +104,9 @@ public class InventoryObject : ScriptableObject
     {
         for (int i = 0;i < Container.Items.Length; i++)
         {
-            if (Container.Items[i].item.Id <= -1)
+            if (Container.Items[i].ItemID <= -1)
             {
-                Container.Items[i].UpdateSlot( _item, _amount);
+                Container.Items[i].UpdateSlot(-1, _item, _amount);
                 return Container.Items[i];
             }
             
@@ -150,7 +141,7 @@ public class InventoryObject : ScriptableObject
             Inventory newContainer = (Inventory)formatter.Deserialize(stream);
             for (int i = 0; i < Container.Items.Length; i++)
             {
-                Container.Items[i].UpdateSlot(newContainer.Items[i].item, newContainer.Items[i].amount);
+                Container.Items[i].UpdateSlot(newContainer.Items[i].ItemID ,newContainer.Items[i].item, newContainer.Items[i].amount);
             }
             stream.Close();
         }
@@ -178,6 +169,7 @@ public class Inventory
 [System.Serializable]
 public class InventorySlot
 {
+    public int ItemID;
     public ItemType[] AllowedItems = new ItemType[0];
     [System.NonSerialized]
     public UserInterface parent;
@@ -188,7 +180,7 @@ public class InventorySlot
     {
         get
         {
-            if (item.Id >= 0)
+            if (ItemID >= 0)
             {
                 return parent.inventory.database.Items[item.Id];
             }
@@ -197,23 +189,27 @@ public class InventorySlot
     }
     public InventorySlot()
     {
-        item = new Item();
+        ItemID = -1;
+        item = null;
         amount = 0;
     }
 
-    public InventorySlot(Item _item, int _amount)
+    public InventorySlot(int _id,Item _item, int _amount)
     {
+        ItemID = _id;
         item = _item;
         amount = _amount;
     }
-    public void UpdateSlot( Item _item, int _amount)
-    {
+    public void UpdateSlot(int _id, Item _item, int _amount)
+    {   
+        ItemID = _id;
         item = _item;
         amount = _amount;
     }
 
     public void RemoveItem()
     {
+        ItemID = -1;
         item = new Item();
         amount = 0;
     }

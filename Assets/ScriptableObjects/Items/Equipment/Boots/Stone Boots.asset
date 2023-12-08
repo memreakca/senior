@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiDisplay: {fileID: -1808501347, guid: f8f89eaa02fee154fa0197bf20a43605, type: 3}
   stackable: 0
-  type: 0
+  type: 2
   description: 
   data:
     Name: Stone Boots
