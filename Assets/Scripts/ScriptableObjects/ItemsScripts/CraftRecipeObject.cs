@@ -30,6 +30,7 @@ public class CraftRecipeObject : ScriptableObject
         foreach (Ingredient ingredient in ingredients)
         {
             inventoryObject.RemoveAmount(ingredient.item, ingredient.amount);
+            
         }
     }
     public void Craft()

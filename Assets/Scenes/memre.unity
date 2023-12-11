@@ -1364,7 +1364,7 @@ PrefabInstance:
     - target: {fileID: 9139236990479053171, guid: 970e3617c67d6b54fb087e08f6a844c1,
         type: 3}
       propertyPath: m_Name
-      value: slotPrefab (4)
+      value: necklaceSlot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1642,7 +1642,7 @@ PrefabInstance:
     - target: {fileID: 9139236990479053171, guid: 970e3617c67d6b54fb087e08f6a844c1,
         type: 3}
       propertyPath: m_Name
-      value: slotPrefab
+      value: helmetSlot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3831,7 +3831,7 @@ PrefabInstance:
     - target: {fileID: 9139236990479053171, guid: 970e3617c67d6b54fb087e08f6a844c1,
         type: 3}
       propertyPath: m_Name
-      value: slotPrefab (2)
+      value: bootsSlot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4244,7 +4244,7 @@ PrefabInstance:
     - target: {fileID: 9139236990479053171, guid: 970e3617c67d6b54fb087e08f6a844c1,
         type: 3}
       propertyPath: m_Name
-      value: slotPrefab (1)
+      value: chestSlot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4674,7 +4674,7 @@ PrefabInstance:
     - target: {fileID: 9139236990479053171, guid: 970e3617c67d6b54fb087e08f6a844c1,
         type: 3}
       propertyPath: m_Name
-      value: slotPrefab (3)
+      value: ringSlot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
