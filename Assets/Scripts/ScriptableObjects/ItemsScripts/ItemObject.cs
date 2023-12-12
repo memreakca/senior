@@ -17,11 +17,10 @@ public enum ItemType
 
 public enum Attributes
 {
-    MaxHp,
-    Strength,
-    Vitality,
-    Agility
-
+    Strength, // Karakterin yetenek veya basit saldýrýlarla verdiði Hasarý Arttýrýr
+    Vitality, // Karakterin Hareket Hýzýný Arttýrýr
+    Agility, // Karakterin Can Deðerini (HP) Arttýrýr  1 Agility = 25 HP
+    Intelligence // Karakterin Mana Deðerini (SP) Arttýrýr 1 Intelligence = 25 SP
 }
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory System/Items/item")]
 public class ItemObject : ScriptableObject
@@ -69,21 +68,30 @@ public class Item
 }
 
 [System.Serializable]
-public class ItemBuff
+public class ItemBuff : IModifiers
 {
     public Attributes attribute;
     public int value;
     public int min;
     public int max;
 
-    public ItemBuff(int _min , int _max)
+    public ItemBuff(int _value)
+    {
+        value = _value;
+    }
+    public ItemBuff(int _min, int _max)
     {
         min = _min; max = _max; GenerateValue();
     }
-    
     public void GenerateValue()
     {
         value = UnityEngine.Random.Range(min, max);
     }
+
+    public void AddValue(ref int baseValue)
+    {
+        baseValue += value;
+    }
+
 
 }

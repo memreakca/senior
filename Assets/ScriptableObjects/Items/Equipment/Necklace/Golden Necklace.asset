@@ -19,4 +19,12 @@ MonoBehaviour:
   data:
     Name: Golden Necklace
     Id: 6
-    buffs: []
+    buffs:
+    - attribute: 1
+      value: 0
+      min: 2
+      max: 12
+    - attribute: 2
+      value: 0
+      min: 2
+      max: 12

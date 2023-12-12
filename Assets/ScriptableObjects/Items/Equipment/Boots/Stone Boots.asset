@@ -19,4 +19,8 @@ MonoBehaviour:
   data:
     Name: Stone Boots
     Id: 5
-    buffs: []
+    buffs:
+    - attribute: 2
+      value: 0
+      min: 2
+      max: 12

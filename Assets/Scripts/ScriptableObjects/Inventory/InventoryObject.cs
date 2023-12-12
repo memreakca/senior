@@ -9,10 +9,16 @@ using System.Runtime.Serialization;
 using static UnityEditor.Progress;
 using System.Security.Cryptography;
 
+public enum InterfaceType
+{
+    Inventory,
+    Equipment,
+    Chest
+}
 [CreateAssetMenu(fileName = "New Inventory",menuName ="Inventory System/Inventory")]
 public class InventoryObject : ScriptableObject 
 {
-
+    public InterfaceType type;
     public string savePath;
     public ItemDatabaseObject database;
     public Inventory Container;
@@ -88,7 +94,7 @@ public class InventoryObject : ScriptableObject
         {
             if (GetSlots[i].ItemID == _item.Id)
             {
-                GetSlots[i].RemoveAmount(_amount);
+                GetSlots[i].UseAmount(_amount);
                 RemoveAmountlessItem();
                 return;
             }
@@ -231,11 +237,11 @@ public class InventorySlot
         UpdateSlot(ItemID,item, amount += value);
     }
 
-    public void RemoveAmount(int value)
+    public void UseAmount(int value)
     {
         if (amount >= value)
         {
-            amount -= value;
+            UpdateSlot(ItemID, item, amount -= value);
         }
         else
         {

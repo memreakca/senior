@@ -19,4 +19,12 @@ MonoBehaviour:
   data:
     Name: Stone Helmet
     Id: 4
-    buffs: []
+    buffs:
+    - attribute: 0
+      value: 0
+      min: 2
+      max: 12
+    - attribute: 1
+      value: 0
+      min: 2
+      max: 12

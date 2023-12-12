@@ -19,4 +19,12 @@ MonoBehaviour:
   data:
     Name: Golden Ring
     Id: 7
-    buffs: []
+    buffs:
+    - attribute: 0
+      value: 0
+      min: 2
+      max: 12
+    - attribute: 3
+      value: 0
+      min: 2
+      max: 12
