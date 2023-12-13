@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum ItemType
 {
-    Helmet,
+    Helmet, 
     Chest,
     Boots,
     Ring,

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Playables;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -8,16 +9,39 @@ public class Player : MonoBehaviour
     public InventoryObject inventory;
     public InventoryObject equipment;
 
-    [SerializeField] public int HP;
-    [SerializeField] public int SP;
-    [SerializeField] public int Strength;
-    [SerializeField] public int Agility;
-    [SerializeField] public int Vitality;
-    
+    [Header("Used Values")]
+    public int HP;
+    public int SP;
+
+    [Header("Max Values")]
+    public int maxHP;
+    public int maxSP;
+    public int STR;
+    public int AGL;
+    public int VIT;
+    public int INT;
+
+    [Header("Base Values ")]
+    [SerializeField] public int baseHP;
+    [SerializeField] public int baseSP;
+    [SerializeField] public int basestrength;
+    [SerializeField] public int baseagility;
+    [SerializeField] public int basevitality;
+    [SerializeField] public int baseintelligence;
+
+    [Header("Modified Values ")]
+    public int mdfHP ;
+    public int mdfSP ;
+    public int mdfstrength ;
+    public int mdfagility ;
+    public int mdfvitality ;
+    public int mdfintelligence ;
+
     public Attribute[] attributes;
 
     private void Start()
     {
+
         for (int i = 0; i < attributes.Length; i++)
         {     
             attributes[i].SetParent(this);
@@ -47,7 +71,14 @@ public class Player : MonoBehaviour
                     {
                         if (attributes[j].type == _slot.item.buffs[i].attribute)
                             attributes[j].value.RemoveModifier(_slot.item.buffs[i]);//playerýn attribute deðerleri azalýr
-                        
+
+                        switch (attributes[j].type)
+                        {
+                            case Attributes.Agility: mdfagility = attributes[j].value.modifiedValue; mdfHP = attributes[j].value.modifiedValue * 25; break;
+                            case Attributes.Intelligence: mdfintelligence = attributes[j].value.modifiedValue; mdfSP = attributes[j].value.modifiedValue * 20; break;
+                            case Attributes.Strength: mdfstrength = attributes[j].value.modifiedValue; break;
+                            case Attributes.Vitality: mdfvitality = attributes[j].value.modifiedValue; break;
+                        }
                     }
                 }
 
@@ -73,10 +104,15 @@ public class Player : MonoBehaviour
                 {
                     for (int j = 0; j < attributes.Length; j++)
                     {
-
                         if (attributes[j].type == _slot.item.buffs[i].attribute)
                             attributes[j].value.AddModifier(_slot.item.buffs[i]);//playerýn attribute deðerleri artar
-                        
+                        switch (attributes[j].type)
+                        {
+                            case Attributes.Agility: mdfagility = attributes[j].value.modifiedValue; mdfHP = attributes[j].value.modifiedValue * 25; break;
+                            case Attributes.Intelligence: mdfintelligence = attributes[j].value.modifiedValue; mdfSP = attributes[j].value.modifiedValue * 20; break;
+                            case Attributes.Strength: mdfstrength = attributes[j].value.modifiedValue; break;
+                            case Attributes.Vitality: mdfvitality = attributes[j].value.modifiedValue; break;
+                        }
                     }
                 }
 
@@ -103,7 +139,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-       
+        UpdateValues();
+
         if(Input.GetKeyDown(KeyCode.Space)) 
         {
             inventory.Save();
@@ -125,6 +162,27 @@ public class Player : MonoBehaviour
     {
         inventory.Clear();
         equipment.Clear();
+    }
+
+    public void UpdateValues()
+    {
+        for (int i = 0; i < attributes.Length; i++)
+        {
+            switch (attributes[i].type)
+            {
+                case Attributes.Agility: mdfagility = attributes[i].value.modifiedValue; mdfHP = attributes[i].value.modifiedValue * 25; break;
+                case Attributes.Intelligence: mdfintelligence = attributes[i].value.modifiedValue; mdfSP = attributes[i].value.modifiedValue * 20; break;
+                case Attributes.Strength: mdfstrength = attributes[i].value.modifiedValue; break;
+                case Attributes.Vitality: mdfvitality = attributes[i].value.modifiedValue; break;
+            }
+        }
+
+        maxHP = baseHP + mdfHP;
+        maxSP = baseSP + mdfSP;
+        STR = basestrength + mdfstrength;
+        VIT = basevitality + mdfvitality;
+        INT = baseintelligence + mdfintelligence;
+        AGL = baseagility + mdfagility;
     }
 }
 

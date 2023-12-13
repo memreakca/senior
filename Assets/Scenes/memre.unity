@@ -2302,7 +2302,6 @@ GameObject:
   - component: {fileID: 944203702}
   - component: {fileID: 944203700}
   - component: {fileID: 944203699}
-  - component: {fileID: 944203703}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2324,11 +2323,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: 378c86a933312b741a92ab9e0a52e000, type: 2}
   equipment: {fileID: 11400000, guid: bccaeaedf3d4b4b428342a957f976174, type: 2}
-  HP: 100
-  SP: 50
-  Strength: 2
-  Agility: 2
-  Vitality: 2
+  HP: 0
+  SP: 0
+  maxHP: 0
+  maxSP: 0
+  STR: 0
+  AGL: 0
+  VIT: 0
+  INT: 0
+  baseHP: 100
+  baseSP: 75
+  basestrength: 2
+  baseagility: 2
+  basevitality: 2
+  baseintelligence: 2
+  mdfHP: 0
+  mdfSP: 0
+  mdfstrength: 0
+  mdfagility: 0
+  mdfvitality: 0
+  mdfintelligence: 0
   attributes:
   - type: 1
     value:
@@ -2344,7 +2358,7 @@ MonoBehaviour:
       modifiedValue: 0
   - type: 3
     value:
-      baseValue: 0
+      baseValue: 10
       modifiedValue: 0
 --- !u!4 &944203698
 Transform:
@@ -2443,19 +2457,6 @@ MonoBehaviour:
   CraftingUI: {fileID: 1466584078}
   inventoryUI: {fileID: 1856118999}
   isInventoryVisible: 0
---- !u!114 &944203703
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 944203696}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4722d69ce1486a04b8beff7c96758a84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  recipeSO: {fileID: 11400000, guid: fe5e51e377113a94d80b78f6563aac2c, type: 2}
 --- !u!1001 &946764880
 PrefabInstance:
   m_ObjectHideFlags: 0
