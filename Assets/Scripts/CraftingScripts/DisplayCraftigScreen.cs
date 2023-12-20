@@ -37,9 +37,6 @@ public class DisplayCraftigScreen : MonoBehaviour
 
             var tempItem = item;
             obj.transform.GetComponent<Button>().onClick.AddListener(() => displayIngredients(tempItem));
-
-         
-     
         }
     }
     public void displayIngredients(CraftRecipeObject item)
@@ -53,7 +50,6 @@ public class DisplayCraftigScreen : MonoBehaviour
         }
         for (int i = 0; i < item.ingredients.Length; i++)
         {
-
             var ingobj = Instantiate(ingredientsPrefab, Vector3.zero, Quaternion.identity);
             ingobj.transform.SetParent(ingredientsContent);
             ingobj.transform.GetComponentsInChildren<Image>()[1].sprite = itemDatabase.Items[item.ingredients[i].item.Id].uiDisplay;

@@ -2323,8 +2323,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: 378c86a933312b741a92ab9e0a52e000, type: 2}
   equipment: {fileID: 11400000, guid: bccaeaedf3d4b4b428342a957f976174, type: 2}
+  questList: {fileID: 11400000, guid: ba8d324d1ddc3c743a5818af842d6fa5, type: 2}
   HP: 0
   SP: 0
+  hpRegen: 0
   maxHP: 0
   maxSP: 0
   STR: 0

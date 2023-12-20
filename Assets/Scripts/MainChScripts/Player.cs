@@ -8,10 +8,13 @@ public class Player : MonoBehaviour
 {
     public InventoryObject inventory;
     public InventoryObject equipment;
+    public QuestListObject questList;
+
 
     [Header("Used Values")]
-    public int HP;
-    public int SP;
+    public float HP = 100;
+    public float SP = 75;
+    public float hpRegen;
 
     [Header("Max Values")]
     public int maxHP;
@@ -20,6 +23,7 @@ public class Player : MonoBehaviour
     public int AGL;
     public int VIT;
     public int INT;
+
 
     [Header("Base Values ")]
     [SerializeField] public int baseHP;
@@ -41,6 +45,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+       
 
         for (int i = 0; i < attributes.Length; i++)
         {     
@@ -51,6 +56,8 @@ public class Player : MonoBehaviour
             equipment.GetSlots[i].OnBeforeUpdate += OnBeforeSlotUpdate;
             equipment.GetSlots[i].OnAfterUpdate += OnAfterSlotUpdate;
         }
+        UpdateValues();
+        HP = maxHP; SP = maxSP;
     }
 
     
@@ -71,16 +78,9 @@ public class Player : MonoBehaviour
                     {
                         if (attributes[j].type == _slot.item.buffs[i].attribute)
                             attributes[j].value.RemoveModifier(_slot.item.buffs[i]);//playerýn attribute deðerleri azalýr
-
-                        switch (attributes[j].type)
-                        {
-                            case Attributes.Agility: mdfagility = attributes[j].value.modifiedValue; mdfHP = attributes[j].value.modifiedValue * 25; break;
-                            case Attributes.Intelligence: mdfintelligence = attributes[j].value.modifiedValue; mdfSP = attributes[j].value.modifiedValue * 20; break;
-                            case Attributes.Strength: mdfstrength = attributes[j].value.modifiedValue; break;
-                            case Attributes.Vitality: mdfvitality = attributes[j].value.modifiedValue; break;
-                        }
                     }
                 }
+                UpdateValues();
 
                 break;
             case InterfaceType.Chest:
@@ -106,15 +106,9 @@ public class Player : MonoBehaviour
                     {
                         if (attributes[j].type == _slot.item.buffs[i].attribute)
                             attributes[j].value.AddModifier(_slot.item.buffs[i]);//playerýn attribute deðerleri artar
-                        switch (attributes[j].type)
-                        {
-                            case Attributes.Agility: mdfagility = attributes[j].value.modifiedValue; mdfHP = attributes[j].value.modifiedValue * 25; break;
-                            case Attributes.Intelligence: mdfintelligence = attributes[j].value.modifiedValue; mdfSP = attributes[j].value.modifiedValue * 20; break;
-                            case Attributes.Strength: mdfstrength = attributes[j].value.modifiedValue; break;
-                            case Attributes.Vitality: mdfvitality = attributes[j].value.modifiedValue; break;
-                        }
                     }
                 }
+                UpdateValues();
 
                 break;
             case InterfaceType.Chest:
@@ -139,7 +133,15 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        UpdateValues();
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            questList.mainQuestObjects[0].CompleteQuest();
+        }
+        if (HP < maxHP)
+        {
+            HP += Time.deltaTime * hpRegen;
+        }
+        else { HP = maxHP; }
 
         if(Input.GetKeyDown(KeyCode.Space)) 
         {
@@ -166,6 +168,9 @@ public class Player : MonoBehaviour
 
     public void UpdateValues()
     {
+        if (maxHP < HP) { HP = maxHP; }
+        if (maxSP < SP ) { SP = maxSP; } 
+
         for (int i = 0; i < attributes.Length; i++)
         {
             switch (attributes[i].type)
@@ -183,6 +188,8 @@ public class Player : MonoBehaviour
         VIT = basevitality + mdfvitality;
         INT = baseintelligence + mdfintelligence;
         AGL = baseagility + mdfagility;
+        hpRegen = AGL * 0.2f;
+        
     }
 }
 

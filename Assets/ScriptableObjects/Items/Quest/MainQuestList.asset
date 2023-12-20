@@ -9,14 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e0d95d0021cf9448b84521c6efd3297, type: 3}
-  m_Name: Bandage
+  m_Script: {fileID: 11500000, guid: 47023c3a967450346b9c400045ab07f3, type: 3}
+  m_Name: MainQuestList
   m_EditorClassIdentifier: 
-  uiDisplay: {fileID: 1897062749, guid: f8f89eaa02fee154fa0197bf20a43605, type: 3}
-  stackable: 1
-  type: 6
-  description: 
-  data:
-    Name: Bandage
-    Id: 0
-    buffs: []
+  mainQuestObjects:
+  - {fileID: 11400000, guid: 23a012aca3d03374a9aec962527f058a, type: 2}

@@ -24,11 +24,6 @@ public class ItemDatabaseObject : ScriptableObject , ISerializationCallbackRecei
 
     public void OnAfterDeserialize()
     {
-        //for (int i = 0; i < Items.Length; i++)
-        //{
-        //    Items[i].data.Id = i;
-        //    GetItem.Add(i, Items[i]);
-        //}
         UpdateID();
     }
 }
