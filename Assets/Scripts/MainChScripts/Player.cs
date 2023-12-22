@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public static Player main;
+
+    public PlayerLevel playerLevel;
     public InventoryObject inventory;
     public InventoryObject equipment;
     public QuestListObject questList;
@@ -15,6 +18,7 @@ public class Player : MonoBehaviour
     public float HP = 100;
     public float SP = 75;
     public float hpRegen;
+    public float spRegen;
 
     [Header("Max Values")]
     public int maxHP;
@@ -42,10 +46,14 @@ public class Player : MonoBehaviour
     public int mdfintelligence ;
 
     public Attribute[] attributes;
+    private void Awake()
+    {
+        main = this;
+    }
 
     private void Start()
     {
-       
+        playerLevel = GetComponent<PlayerLevel>();
 
         for (int i = 0; i < attributes.Length; i++)
         {     
@@ -133,15 +141,23 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J))
+        //if (Input.GetKeyDown(KeyCode.J))
+        //{
+        //    questList.mainQuestObjects[0].CompleteQuest();
+        //}
+
+        if (SP < maxSP)
         {
-            questList.mainQuestObjects[0].CompleteQuest();
+            SP += Time.deltaTime * spRegen;
+            Mathf.Clamp(SP, 0 , maxSP);
         }
+
         if (HP < maxHP)
         {
             HP += Time.deltaTime * hpRegen;
+            Mathf.Clamp(HP, 0, maxHP);
         }
-        else { HP = maxHP; }
+        
 
         if(Input.GetKeyDown(KeyCode.Space)) 
         {
@@ -188,8 +204,20 @@ public class Player : MonoBehaviour
         VIT = basevitality + mdfvitality;
         INT = baseintelligence + mdfintelligence;
         AGL = baseagility + mdfagility;
-        hpRegen = AGL * 0.2f;
+        hpRegen = AGL * 0.6f;
+        spRegen = INT * 0.3f;
         
+    }
+
+    internal void UpdateBaseStats()
+    {
+        baseHP += playerLevel.currentLevel * 100;
+        baseSP += playerLevel.currentLevel * 30;
+        basestrength += playerLevel.currentLevel ;
+        baseagility += playerLevel.currentLevel ;
+        baseintelligence += playerLevel.currentLevel ;
+        basevitality += playerLevel.currentLevel ;
+        UpdateValues();
     }
 }
 

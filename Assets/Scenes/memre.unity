@@ -2297,6 +2297,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 944203698}
+  - component: {fileID: 944203703}
   - component: {fileID: 944203697}
   - component: {fileID: 944203701}
   - component: {fileID: 944203702}
@@ -2321,12 +2322,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 482342fd141711942bf0a828abd86252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerLevel: {fileID: 0}
   inventory: {fileID: 11400000, guid: 378c86a933312b741a92ab9e0a52e000, type: 2}
   equipment: {fileID: 11400000, guid: bccaeaedf3d4b4b428342a957f976174, type: 2}
   questList: {fileID: 11400000, guid: ba8d324d1ddc3c743a5818af842d6fa5, type: 2}
   HP: 0
   SP: 0
   hpRegen: 0
+  spRegen: 0
   maxHP: 0
   maxSP: 0
   STR: 0
@@ -2459,6 +2462,22 @@ MonoBehaviour:
   CraftingUI: {fileID: 1466584078}
   inventoryUI: {fileID: 1856118999}
   isInventoryVisible: 0
+--- !u!114 &944203703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944203696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e87cbb3edb5f5384988f0c69b8933e98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentExp: 0
+  currentLevel: 0
+  maxlevel: 20
+  neededLvlExp: 0
 --- !u!1001 &946764880
 PrefabInstance:
   m_ObjectHideFlags: 0
