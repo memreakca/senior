@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerLevel : MonoBehaviour
 {
-    
+    public PlayerSkill playerSkill;
     public float currentExp;
     public int currentLevel = 1;
     public int maxlevel = 20;
@@ -14,6 +14,7 @@ public class PlayerLevel : MonoBehaviour
     
     private void Start()
     {
+        playerSkill = GetComponent<PlayerSkill>();
         currentLevel = 1;
         neededLvlExp = 200;
     }
@@ -28,13 +29,13 @@ public class PlayerLevel : MonoBehaviour
     {
         if(currentLevel == maxlevel) { return; }
         currentExp += expAmount;
-        if (currentExp >= neededLvlExp && currentLevel < maxlevel) { LevelUp(); }
+        if (currentExp >= neededLvlExp ) { LevelUp(); }
     }
 
     public void LevelUp()
     {
         currentLevel++;
-        
+        playerSkill.unusedSkillPoints++;
         neededLvlExp = CalculateExperienceToLevelUp();
         currentExp = 0;
         Player.main.UpdateBaseStats();

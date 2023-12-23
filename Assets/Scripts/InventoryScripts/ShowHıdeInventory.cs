@@ -6,6 +6,7 @@ public class ShowHıdeInventory : MonoBehaviour
 {
     [SerializeField] public GameObject CraftingUI;
     [SerializeField] public GameObject inventoryUI;
+    [SerializeField] public GameObject EquipmentUI;
     
     public bool isInventoryVisible;
     void Update()
@@ -22,6 +23,7 @@ public class ShowHıdeInventory : MonoBehaviour
         CraftingUI.SetActive(false);
         isInventoryVisible = !isInventoryVisible;
         inventoryUI.SetActive(isInventoryVisible);
+        EquipmentUI.SetActive(isInventoryVisible);
         
     }
 }
