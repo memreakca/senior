@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     public InventoryObject inventory;
     public InventoryObject equipment;
     public QuestListObject questList;
+    public BarScripts healthbar;
+    public BarScripts manabar;
 
 
     [Header("Used Values")]
@@ -146,6 +148,8 @@ public class Player : MonoBehaviour
         //    questList.mainQuestObjects[0].CompleteQuest();
         //}
 
+        
+
         if (SP < maxSP)
         {
             SP += Time.deltaTime * spRegen;
@@ -157,9 +161,11 @@ public class Player : MonoBehaviour
             HP += Time.deltaTime * hpRegen;
             Mathf.Clamp(HP, 0, maxHP);
         }
-        
 
-        if(Input.GetKeyDown(KeyCode.Space)) 
+        healthbar.SetHealth(HP, maxHP);
+        manabar.SetMana(SP, maxSP);
+
+        if (Input.GetKeyDown(KeyCode.Space)) 
         {
             inventory.Save();
             equipment.Save();
