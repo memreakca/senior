@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47023c3a967450346b9c400045ab07f3, type: 3}
-  m_Name: MainQuestList
+  m_Script: {fileID: 11500000, guid: 1f9dd765463b6c54ba8a52e65771aba8, type: 3}
+  m_Name: mQuest2
   m_EditorClassIdentifier: 
-  mainQuestObjects:
-  - {fileID: 11400000, guid: 23a012aca3d03374a9aec962527f058a, type: 2}
-  - {fileID: 11400000, guid: 588a06d3e876f2045ba483c1346f655f, type: 2}
+  isCompleted: 0
+  questName: 
+  questType: 1
+  itemsToGather: []
+  inventoryObject: {fileID: 11400000, guid: 378c86a933312b741a92ab9e0a52e000, type: 2}

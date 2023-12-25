@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Playables;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
     public QuestListObject questList;
     public BarScripts healthbar;
     public BarScripts manabar;
+    public TextMeshProUGUI staticInterfaceTXT;
 
 
     [Header("Used Values")]
@@ -141,6 +143,12 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void UpdateStaticInterface()
+    {
+        string statsString = string.Format("Max HP: {0:F1}\nMax SP: {1:F1}\nHP Regen: {2:F1}\nSP Regen: {3:F1}\nSTR: {4}\nAGL: {5}\nVIT: {6}\nINT: {7}",
+                                           maxHP, maxSP, hpRegen, spRegen, STR, AGL, VIT, INT);
+        staticInterfaceTXT.text = statsString;
+    }
     private void Update()
     {
         //if (Input.GetKeyDown(KeyCode.J))
@@ -212,7 +220,7 @@ public class Player : MonoBehaviour
         AGL = baseagility + mdfagility;
         hpRegen = AGL * 0.6f;
         spRegen = INT * 0.3f;
-        
+        UpdateStaticInterface();
     }
 
     internal void UpdateBaseStats()

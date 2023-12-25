@@ -18,19 +18,19 @@ public class PlayerLevel : MonoBehaviour
         currentLevel = 1;
         neededLvlExp = 200;
     }
-
-    private int CalculateExperienceToLevelUp()
-    {
-        int baseExp = 200;
-        float expScaleFactor = 1.3f;
-        return (int)(baseExp * Mathf.Pow(expScaleFactor, currentLevel - 1));
-    }
     public void GainExp(int expAmount)
     {
         if(currentLevel == maxlevel) { return; }
         currentExp += expAmount;
         if (currentExp >= neededLvlExp ) { LevelUp(); }
     }
+    private int CalculateExperienceToLevelUp()
+    {
+        int baseExp = 200;
+        float expScaleFactor = 1.3f;
+        return (int)(baseExp * Mathf.Pow(expScaleFactor, currentLevel - 1));
+    }
+  
 
     public void LevelUp()
     {
