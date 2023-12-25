@@ -9,6 +9,7 @@ public class PlayerSkill : MonoBehaviour
 {
     public static PlayerSkill instance;
     public GameObject SkillUI;
+    public SkillFunctionality skillFunctionality;
 
     public TextMeshProUGUI unusedSkillpointTXT;
 
@@ -27,14 +28,21 @@ public class PlayerSkill : MonoBehaviour
     private void Start()
     {
         unusedSkillPoints = 1;
-        skill1.text = skill1text;
-        skill2.text = skill2text;
-        skill3.text = skill3text;
-        skill4.text = skill4text;
+        skill1.Text = skill1text;
+        skill2.Text = skill2text;
+        skill3.Text = skill3text;
+        skill4.Text = skill4text;
+
+        skillFunctionality= GetComponent<SkillFunctionality>();
+        skillFunctionality.SetPlayerSkill(this);
     }
     private void Update()
     {
         unusedSkillpointTXT.text = $"Unused Skill Points = {unusedSkillPoints}";
+        Skill1Button();
+        Skill2Button();
+        Skill3Button();
+        Skill4Button();
     }
     private void Awake()
     {
@@ -91,34 +99,65 @@ public class PlayerSkill : MonoBehaviour
         }
     }
 
-  
+    public void SetSkillFunctionality(PlayerSkill skill)
+    {
+        skillFunctionality.SetPlayerSkill(skill);
+    }
+
+    public void Skill1Button()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            skillFunctionality.UseSkill1();
+        }
+    }
+    public void Skill2Button()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            skillFunctionality.UseSkill2();
+        }
+    }
+    public void Skill3Button()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            skillFunctionality.UseSkill3();
+        }
+    }
+    public void Skill4Button()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            skillFunctionality.UseSkill4();
+        }
+    }
+
 }
 [System.Serializable]
 public class Skill
 {
     public string name;
-    public int cooldown;
+    public float maxCooldown;
+    public float cooldown;
     public int level;
     public int maxLevel = 5;
-    public TextMeshProUGUI text;
+    public TextMeshProUGUI Text;
 
     public void Upgrade()
     {
         if (level < maxLevel)
         {
             level++;
-            if (level == maxLevel)
-            {
-                text.text = $"Skill Level = MAX";
-            }
-            else
-            {
-                text.text = $"Skill Level = {level}";
-            }
+            Text.text = (level == maxLevel) ? $"Skill Level = MAX" : $"Skill Level = {level}";
         }
         else
         {
             Debug.Log("Max LEVEL");
         }
+    }
+    public void SetCooldown()
+    {
+        cooldown = maxCooldown - level;
     }
 }
