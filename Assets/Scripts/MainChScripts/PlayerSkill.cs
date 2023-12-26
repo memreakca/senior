@@ -149,6 +149,7 @@ public class Skill
         if (level < maxLevel)
         {
             level++;
+            maxCooldown--;
             Text.text = (level == maxLevel) ? $"Skill Level = MAX" : $"Skill Level = {level}";
         }
         else
@@ -158,6 +159,6 @@ public class Skill
     }
     public void SetCooldown()
     {
-        cooldown = maxCooldown - level;
+        cooldown = maxCooldown;
     }
 }
