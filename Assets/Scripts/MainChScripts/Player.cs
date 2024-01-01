@@ -131,17 +131,7 @@ public class Player : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider other)
-    {
-        var groundItem = other.GetComponent<GroundItem>();
-        if (groundItem)
-        {
-            Item _item = new Item(groundItem.item);
-            inventory.AddItem(_item, 1);
-            
-            Destroy(other.gameObject);
-        }
-    }
+  
 
     public void UpdateStaticInterface()
     {
