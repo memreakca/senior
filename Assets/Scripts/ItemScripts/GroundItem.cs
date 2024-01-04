@@ -9,9 +9,9 @@ public class GroundItem : MonoBehaviour
     public GameObject lootPackage;
     public InventoryObject inventory;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-        if (other.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
             Item _item = new Item(item);
             inventory.AddItem(_item, 1);
@@ -19,4 +19,6 @@ public class GroundItem : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+
 }
