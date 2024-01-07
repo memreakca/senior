@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class stone_enemy_sc : MonoBehaviour
 {
+    public static stone_enemy_sc instance;
     public Animator animator;
 
     public float hp;
@@ -11,25 +12,10 @@ public class stone_enemy_sc : MonoBehaviour
 
     [SerializeField] private ItemObject lootItem;
     [SerializeField] private GroundItem lootPackage;
-    public void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.P)) 
-        {
-            Die();
-            Invoke("DestroyGameObject",2);
-            SpawnLoot();
-        }
-    }
 
-    public void Die()
+    private void Awake()
     {
-        Debug.Log("Animationtrgigerred");
-        animator.SetTrigger("Die");        
-    }
-
-    void DestroyGameObject()
-    {
-        Destroy(gameObject);
+        instance = this;
     }
 
     public void SpawnLoot()
