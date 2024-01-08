@@ -22,6 +22,6 @@ public class stone_enemy_sc : MonoBehaviour
     {
         Vector3 lootPosition = transform.position + new Vector3(0, 1, 0);
         var obj = Instantiate(lootPackage.lootPackage,lootPosition, Quaternion.identity);
-        lootPackage.item = lootItem;
+        obj.GetComponent<GroundItem>().item = lootItem;
     }
 }

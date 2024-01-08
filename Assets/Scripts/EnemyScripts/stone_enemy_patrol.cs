@@ -10,7 +10,7 @@ public class stone_enemy_patrol : MonoBehaviour
     public float patrolInterval = 3f;  // Time interval to choose a new random destination
     public float attackRange = 1f;
     public float sightRange = 10f;
-    public float attackDuration = 4.5f;
+    public float attackDuration = 2.5f;
 
     public stone_enemy_sc instance;
     [SerializeField] private Transform patrolPoint;
@@ -51,6 +51,8 @@ public class stone_enemy_patrol : MonoBehaviour
 
         if (navMeshAgent != null)
         {
+            if (isAttacking) return;
+
             if (CanSeePlayer())
             {
                 MoveTowardsPlayer();
@@ -101,7 +103,7 @@ public class stone_enemy_patrol : MonoBehaviour
                 SetRandomPatrolDestination();
             }
         }
-        else if (navMeshAgent.remainingDistance < 0.1f)
+        else if (navMeshAgent.remainingDistance < 0.4f)
         {
             // Start waiting for the timer when the enemy reaches its destination
             isWaiting = true;
@@ -125,7 +127,6 @@ public class stone_enemy_patrol : MonoBehaviour
         animator.SetTrigger("Die");
         animator.SetBool("isRunning", false);
         animator.SetBool("isAttacking", false);
-        animator.SetBool("isIdle", false);
 
         Invoke("DestroyGameObject", 2);
         instance.SpawnLoot();

@@ -9,7 +9,7 @@ public class PlayerLevel : MonoBehaviour
     public int currentLevel = 1;
     public int maxlevel = 20;
     public float neededLvlExp;
-    
+    public float holdExp;
 
     
     private void Start()
@@ -18,11 +18,39 @@ public class PlayerLevel : MonoBehaviour
         currentLevel = 1;
         neededLvlExp = 200;
     }
-    public void GainExp(int expAmount)
+    public void GainExp(float expAmount)
     {
-        if(currentLevel == maxlevel) { return; }
+        if(currentLevel == maxlevel) { neededLvlExp = 0; return; }
+
+        float deltaExp = neededLvlExp - currentExp;
+
+        if (expAmount > deltaExp)
+        {
+            holdExp = expAmount - deltaExp;
+            expAmount = deltaExp;
+            Debug.Log("HoldExp: " + holdExp);
+        }
+        else holdExp = 0;
+
+        
         currentExp += expAmount;
-        if (currentExp >= neededLvlExp ) { LevelUp(); }
+        
+
+        if (currentExp >= neededLvlExp)
+        {
+            LevelUp();
+            GainExp(holdExp);
+            holdExp = 0;
+        }
+
+    }
+    public void LevelUp()
+    {
+        currentLevel++;
+        currentExp = 0;
+        playerSkill.unusedSkillPoints++;
+        neededLvlExp = CalculateExperienceToLevelUp();
+        Player.main.UpdateBaseStats();
     }
     private int CalculateExperienceToLevelUp()
     {
@@ -32,14 +60,7 @@ public class PlayerLevel : MonoBehaviour
     }
   
 
-    public void LevelUp()
-    {
-        currentLevel++;
-        playerSkill.unusedSkillPoints++;
-        neededLvlExp = CalculateExperienceToLevelUp();
-        currentExp = 0;
-        Player.main.UpdateBaseStats();
-    }
+   
 
     private void Update()
     {
