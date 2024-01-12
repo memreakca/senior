@@ -55,6 +55,10 @@ public class Player : MonoBehaviour
         main = this;
     }
 
+    public void TakeDamage(float damage)
+    {
+        HP = HP - damage;
+    }
     private void Start()
     {
         playerLevel = GetComponent<PlayerLevel>();

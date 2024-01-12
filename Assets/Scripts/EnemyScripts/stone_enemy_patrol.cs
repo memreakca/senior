@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,6 +12,7 @@ public class stone_enemy_patrol : MonoBehaviour
     public float attackRange = 1f;
     public float sightRange = 10f;
     public float attackDuration = 2.5f;
+    public float timeBetweenAttacks = 1f;
 
     public stone_enemy_sc instance;
     [SerializeField] private Transform patrolPoint;
@@ -20,9 +22,15 @@ public class stone_enemy_patrol : MonoBehaviour
     private Animator animator;
     private bool isWaiting;
     private bool isAttacking;
+    private SphereCollider handhitbox;
+
+    
+
 
     void Start()
     {
+        handhitbox = GetComponentsInChildren<SphereCollider>()[0];
+        handhitbox.enabled = false;
         instance = gameObject.GetComponent<stone_enemy_sc>(); 
         player = GameObject.FindGameObjectWithTag("Player").transform;
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -38,7 +46,7 @@ public class stone_enemy_patrol : MonoBehaviour
         isWaiting = false;
         isAttacking = false;
 }
-
+   
     void Update()
     {
         
@@ -47,11 +55,12 @@ public class stone_enemy_patrol : MonoBehaviour
             Die();
             return;
         }
-       
+        timeBetweenAttacks -= Time.deltaTime;
 
         if (navMeshAgent != null)
         {
             if (isAttacking) return;
+            if (timeBetweenAttacks > 0) return;
 
             if (CanSeePlayer())
             {
@@ -128,7 +137,7 @@ public class stone_enemy_patrol : MonoBehaviour
         animator.SetBool("isRunning", false);
         animator.SetBool("isAttacking", false);
 
-        Invoke("DestroyGameObject", 2);
+        Invoke("DestroyGameObject", 1.75f);
         instance.SpawnLoot();
     }
 
@@ -160,7 +169,7 @@ public class stone_enemy_patrol : MonoBehaviour
 
     void CheckForAttack()
     {
-        // Check if the player is within attack range
+        
         if (Vector3.Distance(transform.position, player.position) < attackRange)
         {
             AttackPlayer();
@@ -171,6 +180,8 @@ public class stone_enemy_patrol : MonoBehaviour
             animator.SetBool("isRunning", true);
             animator.SetBool("isAttacking", false);
         }
+        
+        
     }
     void AttackPlayer()
     {
@@ -178,15 +189,26 @@ public class stone_enemy_patrol : MonoBehaviour
 
         animator.SetBool("isRunning", false);
         animator.SetBool("isAttacking", true);
-
+        activateHandHitboxes();
         navMeshAgent.isStopped = true;
 
         if (!isAttacking)
         {
             isAttacking = true;
+
             Invoke("FinishAttack", attackDuration);
         
         }
+    }
+
+    void activateHandHitboxes()
+    {
+        handhitbox.enabled= true;
+    }
+    void deactivateHandHitboxes()
+    {
+        handhitbox.enabled = false;
+        
     }
     void FinishAttack()
     {
@@ -194,8 +216,11 @@ public class stone_enemy_patrol : MonoBehaviour
         isAttacking= false;
 
         // Resume NavMeshAgent movement
+        deactivateHandHitboxes();
         navMeshAgent.isStopped = false;
+        timeBetweenAttacks = 1;
         Debug.Log("invoked");
+
         // You can add additional logic here if needed
     }
 
