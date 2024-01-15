@@ -50,11 +50,6 @@ public class stone_enemy_patrol : MonoBehaviour
     void Update()
     {
         
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Die();
-            return;
-        }
         timeBetweenAttacks -= Time.deltaTime;
 
         if (navMeshAgent != null)
@@ -142,11 +137,7 @@ public class stone_enemy_patrol : MonoBehaviour
     }
 
 
-    void DestroyGameObject()
-    {
-        Destroy(gameObject);
-    }
-
+  
     void SetRandomPatrolDestination()
     {
         NavMeshHit hit;

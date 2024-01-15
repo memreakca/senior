@@ -3599,6 +3599,7 @@ GameObject:
   m_Component:
   - component: {fileID: 944203698}
   - component: {fileID: 944203703}
+  - component: {fileID: 944203707}
   - component: {fileID: 944203697}
   - component: {fileID: 944203704}
   - component: {fileID: 944203705}
@@ -3872,6 +3873,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e344e94d8518e16449d0ac557083b3d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &944203707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944203696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57e09115d30ea4b4ba58ae5ebc364841, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InteractRange: 2
 --- !u!1 &961911364
 GameObject:
   m_ObjectHideFlags: 0
@@ -4308,6 +4322,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1264683438403497751, guid: b48a55bd26377ad46a1d9d1e1fa20415,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264683438403497751, guid: b48a55bd26377ad46a1d9d1e1fa20415,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6517033766466312950, guid: b48a55bd26377ad46a1d9d1e1fa20415,
         type: 3}
       propertyPath: patrolPoint
@@ -4367,6 +4391,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0.083
+      objectReference: {fileID: 0}
+    - target: {fileID: 7264328092615626406, guid: b48a55bd26377ad46a1d9d1e1fa20415,
+        type: 3}
+      propertyPath: hp
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 7264328092615626406, guid: b48a55bd26377ad46a1d9d1e1fa20415,
+        type: 3}
+      propertyPath: maxhp
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 8747030228301156626, guid: b48a55bd26377ad46a1d9d1e1fa20415,
         type: 3}
@@ -4452,6 +4486,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: c8f8970234bd7214f9e607a71ff5f160,
         type: 2}
+    - target: {fileID: 8950654013723292086, guid: 5e135b68dcc311e4a87720cd37aa12f4,
+        type: 3}
+      propertyPath: lootamount
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
