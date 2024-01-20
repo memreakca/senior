@@ -707,6 +707,7 @@ GameObject:
   - component: {fileID: 3052132992254596443}
   - component: {fileID: 2379415334072662943}
   - component: {fileID: 3528918116718479389}
+  - component: {fileID: 3182545780089204829}
   m_Layer: 5
   m_Name: hp bar
   m_TagString: Untagged
@@ -772,6 +773,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3182545780089204829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5678666079121288866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6c5799eab45018428169eaeba24c86e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5962990517302577803
 GameObject:
   m_ObjectHideFlags: 0
@@ -1503,13 +1516,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1728700113229546688}
-  maxhp: 0
-  hp: 10
-  damage: 22
+  maxhp: 100
+  hp: 100
+  damage: 100
   hpbar: {fileID: 0}
+  isdead: 0
   lootItem: {fileID: 11400000, guid: 71f28efe6c5e3ca47861c216f7acc658, type: 2}
   lootPackage: {fileID: 8950654013723292086, guid: 5e135b68dcc311e4a87720cd37aa12f4,
     type: 3}
+  OnEnemyDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6517033766466312950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1527,7 +1544,7 @@ MonoBehaviour:
   attackRange: 4.5
   sightRange: 12
   attackDuration: 2.25
-  timeBetweenAttacks: 1
+  timeBetweenAttacks: 3
   instance: {fileID: 0}
   patrolPoint: {fileID: 0}
 --- !u!195 &7426465643702258474

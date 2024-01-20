@@ -45,12 +45,6 @@ public abstract class UserInterface : MonoBehaviour
         }
     }
 
-    //private void Update()
-    //{
-    //    //UpdateSlots();
-        
-    //}
-
     public abstract void CreateSlots();
 
     public void UpdateSlots()
@@ -121,7 +115,7 @@ public abstract class UserInterface : MonoBehaviour
         Destroy(MouseData.tempItemBeingDragged);
         if(MouseData.interfaceMouseIsOver == null)
         {
-            slotsOnInterface[obj].RemoveItem(); // yere býrakýnca item destroylama
+            //slotsOnInterface[obj].RemoveItem(); // yere býrakýnca item destroylama
             return;
         }
         if (MouseData.slotHoveredOver)

@@ -30,6 +30,10 @@ MonoBehaviour:
       value: 10
       min: 0
       max: 0
+    - attribute: 3
+      value: 10
+      min: 0
+      max: 0
   ingredients:
   - item:
       Name: Leaves

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 using UnityEngine.UI;
 public class stone_enemy_sc : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class stone_enemy_sc : MonoBehaviour
 
     [SerializeField] private ItemObject lootItem;
     [SerializeField] private GroundItem lootPackage;
+
+    public UnityEvent OnEnemyDeath;
 
     private void Start()
     {
@@ -47,6 +50,7 @@ public class stone_enemy_sc : MonoBehaviour
 
     public void Die()
     {
+        OnEnemyDeath.Invoke();
         Invoke("DestroyGameObject", 1.75f);
         isdead = true;
         navMeshAgent.speed = 0;

@@ -21,10 +21,14 @@ MonoBehaviour:
     Id: 4
     buffs:
     - attribute: 0
+      value: 8
+      min: 8
+      max: 8
+    - attribute: 1
       value: 0
       min: 2
       max: 12
-    - attribute: 1
+    - attribute: 2
       value: 0
       min: 2
       max: 12

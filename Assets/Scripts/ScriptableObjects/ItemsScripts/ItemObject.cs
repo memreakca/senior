@@ -11,16 +11,20 @@ public enum ItemType
     Ring,
     Necklace,
     Quest,
-    Consumable,
+    ConsumableHP,
+    ConsumableSP,
     Default
 }
 
 public enum Attributes
 {
+    Defence, // Karakterin Defans deðeri
     Strength, // Karakterin yetenek veya basit saldýrýlarla verdiði Hasarý Arttýrýr
     Vitality, // Karakterin Hareket Hýzýný Arttýrýr
     Agility, // Karakterin Can Deðerini (HP) Arttýrýr  1 Agility = 25 HP
-    Intelligence // Karakterin Mana Deðerini (SP) Arttýrýr 1 Intelligence = 25 SP
+    Intelligence, // Karakterin Mana Deðerini (SP) Arttýrýr 1 Intelligence = 25 SP
+    HP, // Consumable item value HP
+    SP // Consumable item value SP
 }
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory System/Items/item")]
 public class ItemObject : ScriptableObject

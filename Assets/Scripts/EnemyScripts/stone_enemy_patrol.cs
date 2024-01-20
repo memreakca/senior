@@ -15,7 +15,7 @@ public class stone_enemy_patrol : MonoBehaviour
     public float timeBetweenAttacks = 1f;
 
     public stone_enemy_sc instance;
-    [SerializeField] private Transform patrolPoint;
+    [SerializeField] public Transform patrolPoint;
     private NavMeshAgent navMeshAgent;
     private float timer;
     private Transform player;
@@ -205,11 +205,11 @@ public class stone_enemy_patrol : MonoBehaviour
     {
         // This function is called when the attack animation duration is complete
         isAttacking= false;
-
+        timeBetweenAttacks = 3;
         // Resume NavMeshAgent movement
         deactivateHandHitboxes();
         navMeshAgent.isStopped = false;
-        timeBetweenAttacks = 1;
+        
         Debug.Log("invoked");
 
         // You can add additional logic here if needed

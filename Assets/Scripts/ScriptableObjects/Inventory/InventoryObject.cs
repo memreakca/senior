@@ -54,7 +54,20 @@ public class InventoryObject : ScriptableObject
         }
         Debug.Log("Inventory Full");
     }
+    public void UseConsumable(ItemObject consumableItem, int amount)
+    {
+        for (int i = 0; i < Container.Items.Length; i++)
+        {
+            if (Container.Items[i].ItemID == consumableItem.data.Id)
+            {
+                Container.Items[i].UseAmount(amount);
+                RemoveAmountlessItem(); // Adjust as needed
+                return;
+            }
+        }
 
+        Debug.Log("Consumable not found in the inventory.");
+    }
     public bool ContainsItem(Item _item, int _amount)
     {
 
@@ -67,7 +80,6 @@ public class InventoryObject : ScriptableObject
         }
         return false;
     }
-
     public void SwapItems(InventorySlot item1,InventorySlot item2)
     {
         if(item2.CanPlaceInSlot(item1.ItemObject) && item1.CanPlaceInSlot(item2.ItemObject))

@@ -64,7 +64,7 @@ public class PlayerLevel : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.J))
         {
             GainExp(500);
         }

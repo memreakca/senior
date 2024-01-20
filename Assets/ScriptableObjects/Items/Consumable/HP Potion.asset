@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e0d95d0021cf9448b84521c6efd3297, type: 3}
-  m_Name: Bandage
+  m_Name: HP Potion
   m_EditorClassIdentifier: 
-  uiDisplay: {fileID: 1897062749, guid: f8f89eaa02fee154fa0197bf20a43605, type: 3}
+  uiDisplay: {fileID: -451107742, guid: f8f89eaa02fee154fa0197bf20a43605, type: 3}
   stackable: 1
   type: 6
   description: 
   data:
-    Name: Bandage
-    Id: 0
+    Name: HP Potion
+    Id: 9
     buffs:
     - attribute: 5
-      value: 100
+      value: 250
       min: 0
       max: 0
