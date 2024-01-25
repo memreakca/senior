@@ -132,7 +132,7 @@ public class stone_enemy_patrol : MonoBehaviour
         animator.SetBool("isRunning", false);
         animator.SetBool("isAttacking", false);
 
-        Invoke("DestroyGameObject", 1.75f);
+        Invoke("DestroyGameObject", 2.5f);
         instance.SpawnLoot();
     }
 
@@ -206,6 +206,7 @@ public class stone_enemy_patrol : MonoBehaviour
         // This function is called when the attack animation duration is complete
         isAttacking= false;
         timeBetweenAttacks = 3;
+        animator.SetBool("isAttacking", false);
         // Resume NavMeshAgent movement
         deactivateHandHitboxes();
         navMeshAgent.isStopped = false;

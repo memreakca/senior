@@ -1540,7 +1540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patrolRadius: 20
-  patrolInterval: 3
+  patrolInterval: 7
   attackRange: 4.5
   sightRange: 12
   attackDuration: 2.25

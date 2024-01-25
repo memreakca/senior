@@ -37,15 +37,17 @@ public class stone_enemy_sc : MonoBehaviour
         if (isdead) return;
         if (Input.GetKeyDown(KeyCode.P))
         {
-
             hp -= 5;
+            if (hp <= 0)
+            {
+                Die();
+                return;
+            }
+            animator.SetTrigger("Hit");
+            
         }
         hpbar.fillAmount = hp / maxhp;   
-
-        if (hp <= 0)
-        {
-            Die();
-        }
+      
     }
 
     public void Die()
