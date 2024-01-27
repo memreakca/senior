@@ -74,6 +74,8 @@ public class Player : MonoBehaviour
     }
     private void Start()
     {
+        healthbar = GetComponent<BarScripts>();
+        manabar = GetComponent<BarScripts>();
         playerLevel = GetComponent<PlayerLevel>();
 
         for (int i = 0; i < attributes.Length; i++)

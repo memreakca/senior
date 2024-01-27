@@ -6,7 +6,7 @@ public class ColliderApplyDamage : MonoBehaviour
 {
     private float damageAmount;
     private stone_enemy_sc enemysc;
-    private bool damageApplied = false;
+    public bool damageApplied = false;
     [SerializeField] private Player player;
     private void Start()
     {
@@ -28,13 +28,4 @@ public class ColliderApplyDamage : MonoBehaviour
         }
     }
 
-    
-    private void OnTriggerExit(Collider other)
-    {
-        
-        if (damageApplied && other.CompareTag("Player"))
-        {
-            damageApplied = false;
-        }
-    }
 }

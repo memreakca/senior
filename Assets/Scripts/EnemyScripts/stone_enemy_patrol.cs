@@ -210,7 +210,7 @@ public class stone_enemy_patrol : MonoBehaviour
         // Resume NavMeshAgent movement
         deactivateHandHitboxes();
         navMeshAgent.isStopped = false;
-        
+        bool damageapplied = GetComponentInChildren<ColliderApplyDamage>().damageApplied = false;
         Debug.Log("invoked");
 
         // You can add additional logic here if needed

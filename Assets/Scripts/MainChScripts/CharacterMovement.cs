@@ -11,11 +11,14 @@ public class CharacterMovement : MonoBehaviour
     public float moveSpeed = 5.0f;
     private Rigidbody rb;
 
+    private float rotationSpeed =  13f ;
+    private Animator animator;
     private bool isMoving;
     private Vector3 moveDirection;
     public Transform orientation;
     void Start()
     {
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -25,7 +28,7 @@ public class CharacterMovement : MonoBehaviour
         CharacterMove();
 
         
-        if (isMoving) { LookAtMouse(); }
+        if (isMoving) { /*LookAtMouse();*/ }
         
 
        
@@ -44,11 +47,20 @@ public class CharacterMovement : MonoBehaviour
         
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
+        
 
-        isMoving = Mathf.Abs(horizontalInput) > 0.1f || Mathf.Abs(verticalInput) > 0.1f || Input.GetMouseButtonDown(0) ;
+        isMoving = Mathf.Abs(horizontalInput) > 0.1f || Mathf.Abs(verticalInput) > 0.1f ;
 
-        Vector3 movement = cameraForward * verticalInput + virtualCamera.transform.right * horizontalInput;
-        transform.Translate(movement * moveSpeed * Time.deltaTime, Space.World);
+        animator.SetBool("isMoving", isMoving);
+        Vector3 targetDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
+        if (targetDirection != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
+
+        //Vector3 movement = cameraForward * verticalInput + virtualCamera.transform.right * horizontalInput;
+        //transform.Translate(movement * moveSpeed * Time.deltaTime, Space.World);
     }
     public void LookAtMouse()
     {
