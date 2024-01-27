@@ -14,7 +14,6 @@ public class CharacterMovement : MonoBehaviour
     private float rotationSpeed =  13f ;
     private Animator animator;
     private bool isMoving;
-    private Vector3 moveDirection;
     public Transform orientation;
     void Start()
     {
@@ -26,17 +25,7 @@ public class CharacterMovement : MonoBehaviour
     public void Update()
     {
         CharacterMove();
-
-        
-        if (isMoving) { /*LookAtMouse();*/ }
-        
-
        
-    }
-
-    public void CheckIsMoving()
-    {
-        
     }
     public void CharacterMove()
     {
@@ -53,14 +42,12 @@ public class CharacterMovement : MonoBehaviour
 
         animator.SetBool("isMoving", isMoving);
         Vector3 targetDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
+
         if (targetDirection != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(targetDirection, Vector3.up);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
-
-        //Vector3 movement = cameraForward * verticalInput + virtualCamera.transform.right * horizontalInput;
-        //transform.Translate(movement * moveSpeed * Time.deltaTime, Space.World);
     }
     public void LookAtMouse()
     {
