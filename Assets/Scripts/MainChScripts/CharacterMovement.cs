@@ -15,6 +15,54 @@ public class CharacterMovement : MonoBehaviour
     private Animator animator;
     private bool isMoving;
     public Transform orientation;
+
+    [SerializeField] private GameObject sword;
+    [SerializeField] private GameObject swordOnShoulder;
+
+    public bool onMelee = false;
+    public bool isEquipping;
+    public bool isEquipped;
+
+    private void Equip()
+    {
+            if (Input.GetKeyUp(KeyCode.Tab) && !isMoving)
+            {
+                isEquipping = true;
+                animator.SetTrigger("EquipSword");
+                if (!onMelee)
+                {
+                    onMelee = true;
+                    animator.SetBool("onMelee", true);
+                }
+                else
+                {
+                    onMelee = false;
+                    animator.SetBool("onMelee", false);
+                }
+
+            } 
+    }
+
+    private void ActiveWeapon()
+    {
+        if(!isEquipped)
+        {
+            sword.SetActive(true);
+            swordOnShoulder.SetActive(false);
+            isEquipped = !isEquipped;
+        }
+        else
+        {
+            sword.SetActive(false);
+            swordOnShoulder.SetActive(true);
+            isEquipped = !isEquipped;
+        }
+    }
+
+    public void Equipped()
+    {
+        isEquipping = false;
+    }
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -25,7 +73,7 @@ public class CharacterMovement : MonoBehaviour
     public void Update()
     {
         CharacterMove();
-       
+        Equip();
     }
     public void CharacterMove()
     {

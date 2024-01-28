@@ -1069,6 +1069,12 @@ MonoBehaviour:
   virtualCamera: {fileID: 1946163009}
   moveSpeed: 5
   orientation: {fileID: 944203698}
+  sword: {fileID: 0}
+  swordOnShoulder: {fileID: 0}
+  onMelee: 0
+  onRanged: 0
+  isEquipping: 0
+  isEquipped: 0
 --- !u!114 &944203702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2013,9 +2019,9 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2290251353143518005, guid: a0846a43520788f4e827547a95220203,
+    - target: {fileID: 6256731611723253842, guid: a0846a43520788f4e827547a95220203,
         type: 3}
-      propertyPath: m_Mass
+      propertyPath: onRanged
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6256731611723253842, guid: a0846a43520788f4e827547a95220203,
@@ -2082,11 +2088,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7971254662331949241, guid: a0846a43520788f4e827547a95220203,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.276
       objectReference: {fileID: 0}
     - target: {fileID: 8779161923167172486, guid: a0846a43520788f4e827547a95220203,
         type: 3}

@@ -37,6 +37,7 @@ public class PlayerAttackCombo : MonoBehaviour
         }
         if(Time.time > nextFireTime)
         {
+            if(gameObject.GetComponent<ShowHýdeInventory>().isInventoryVisible) { return; }
             if(Input.GetMouseButtonDown(0)) { AttackClick(); }
         }
     }

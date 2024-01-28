@@ -20,6 +20,7 @@ public class ShowHıdeInventory : MonoBehaviour
 
     public void ToggleInventory()
     {
+        if(isInventoryVisible) { Time.timeScale = 1f; } else { Time.timeScale = 0f; }
         CraftingUI.SetActive(false);
         isInventoryVisible = !isInventoryVisible;
         inventoryUI.SetActive(isInventoryVisible);
