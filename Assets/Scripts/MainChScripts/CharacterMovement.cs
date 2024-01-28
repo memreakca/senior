@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,12 +9,14 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private LayerMask targetmask;
     public Cinemachine.CinemachineVirtualCamera virtualCamera;
 
+    public PlayerAttackCombo playerAttack;
+
     public float moveSpeed = 5.0f;
     private Rigidbody rb;
 
     private float rotationSpeed =  13f ;
     private Animator animator;
-    private bool isMoving;
+    public bool isMoving;
     public Transform orientation;
 
     [SerializeField] private GameObject sword;
@@ -23,6 +26,7 @@ public class CharacterMovement : MonoBehaviour
     public bool isEquipping;
     public bool isEquipped;
 
+    
     private void Equip()
     {
             if (Input.GetKeyUp(KeyCode.Tab) && !isMoving)
@@ -65,6 +69,7 @@ public class CharacterMovement : MonoBehaviour
     }
     void Start()
     {
+        playerAttack = GetComponent<PlayerAttackCombo>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
     }
@@ -72,11 +77,14 @@ public class CharacterMovement : MonoBehaviour
   
     public void Update()
     {
+        if(isEquipping || playerAttack.isHitting) { return; }
         CharacterMove();
         Equip();
+       
     }
     public void CharacterMove()
     {
+        if (playerAttack.isHitting) return;
         Vector3 cameraForward = virtualCamera.transform.forward;
         cameraForward.y = 0;
         cameraForward.Normalize();

@@ -7,12 +7,10 @@ public class PlayerAttackCombo : MonoBehaviour
     private CharacterMovement chmov;
 
     private Animator animator;
-    public float cooldownTime = 2f;
-    private float nextFireTime = 0f;
-    public static int numberOfClick = 0;
-    float lastClickTime = 0;
-    float maxComboDelay = 1;
-
+ 
+    public bool isHitting;
+    public float timeSinceAttack;
+    public int currentAttack = 1;
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -21,43 +19,42 @@ public class PlayerAttackCombo : MonoBehaviour
 
     private void Update()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && animator.GetCurrentAnimatorStateInfo(0).IsName("combo1"))
-        {
-            animator.SetBool("combo1", false);
-        }
-        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && animator.GetCurrentAnimatorStateInfo(0).IsName("combo2"))
-        {
-            animator.SetBool("combo2", false);
-            numberOfClick = 0;
-        }
+        if (chmov.isEquipping || isHitting) { return; }
+        timeSinceAttack += Time.deltaTime;
 
-        if(Time.time - lastClickTime < maxComboDelay)
-        {
-            numberOfClick = 0;
-        }
-        if(Time.time > nextFireTime)
-        {
-            if(gameObject.GetComponent<ShowHýdeInventory>().isInventoryVisible) { return; }
-            if(Input.GetMouseButtonDown(0)) { AttackClick(); }
-        }
+        Attack();
+
     }
 
-    public void AttackClick()
+    public void Attack()
     {
-        Debug.Log(numberOfClick.ToString());
-        lastClickTime = Time.time;
-        numberOfClick++;
-        if (numberOfClick == 1) 
+        if (!chmov.onMelee) { return; }
+        if(Input.GetMouseButton(0) && timeSinceAttack > 0.4f)
         {
-            animator.SetBool("combo1", true);
-        }
-        numberOfClick = Mathf.Clamp(numberOfClick, 0, 2);
+            Debug.Log(currentAttack.ToString());
+            currentAttack++;
+            isHitting = true;
+            chmov.isMoving = false;
+            animator.SetBool("isMoving", false);
 
-        if (numberOfClick >= 2 && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && animator.GetCurrentAnimatorStateInfo(0).IsName("combo1"))
-        {
-            
-            animator.SetBool("combo1", false);
-            animator.SetBool("combo2", true);
+            if (currentAttack > 3)
+            {
+                currentAttack = 1;
+            }
+
+            if (timeSinceAttack > 1.0f)
+            {
+                currentAttack = 1;
+            }
+
+            animator.SetTrigger("MeleeAttack" + currentAttack);
+
+            timeSinceAttack = 0f;
         }
+
+    }
+    public void ResetHit()
+    {
+        isHitting = false;
     }
 }
