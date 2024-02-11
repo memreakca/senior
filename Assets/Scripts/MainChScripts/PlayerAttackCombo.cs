@@ -7,12 +7,15 @@ public class PlayerAttackCombo : MonoBehaviour
     private CharacterMovement chmov;
 
     private Animator animator;
- 
+
+    public bool canMove;
     public bool isHitting;
     public float timeSinceAttack;
     public int currentAttack = 1;
     private void Start()
     {
+        canMove = true;
+        isHitting = false;
         animator = GetComponent<Animator>();
         chmov = GetComponent<CharacterMovement>();
     }
@@ -31,8 +34,10 @@ public class PlayerAttackCombo : MonoBehaviour
         if (!chmov.onMelee) { return; }
         if(Input.GetMouseButton(0) && timeSinceAttack > 0.4f)
         {
+            chmov.LookAtMouse();
             Debug.Log(currentAttack.ToString());
             currentAttack++;
+            canMove = false;
             isHitting = true;
             chmov.isMoving = false;
             animator.SetBool("isMoving", false);
@@ -56,5 +61,9 @@ public class PlayerAttackCombo : MonoBehaviour
     public void ResetHit()
     {
         isHitting = false;
+    }
+    public void ResetMove()
+    {
+        canMove = true;
     }
 }

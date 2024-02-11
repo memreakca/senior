@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 using UnityEngine.UI;
-public class stone_enemy_sc : MonoBehaviour
+public class stone_enemy_sc : MonoBehaviour , IEnemy
 {
+    public int EnemyID { get; set; }
+    public int Experience { get; set; }
     public static stone_enemy_sc instance;
     public Animator animator;
 
@@ -26,6 +28,8 @@ public class stone_enemy_sc : MonoBehaviour
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         hpbar = gameObject.GetComponentInChildren<Image>();
+        EnemyID = 1;
+        Experience = 200;
     }
     private void Awake()
     {
@@ -37,21 +41,31 @@ public class stone_enemy_sc : MonoBehaviour
         if (isdead) return;
         if (Input.GetKeyDown(KeyCode.P))
         {
-            hp -= 5;
-            if (hp <= 0)
-            {
-                Die();
-                return;
-            }
-            animator.SetTrigger("Hit");
+            TakeDamage(20);
             
         }
         hpbar.fillAmount = hp / maxhp;   
       
     }
 
+    public void TakeDamage(float damage)
+    {
+        hp -= damage;
+        if (hp <= 0)
+        {
+            Die();
+            return;
+        }
+        animator.SetTrigger("Hit");
+    }
+
+    public void Attack()
+    {
+
+    }
     public void Die()
     {
+        CombatEvents.EnemyDied(this);
         OnEnemyDeath.Invoke();
         Invoke("DestroyGameObject", 1.75f);
         isdead = true;
@@ -59,7 +73,6 @@ public class stone_enemy_sc : MonoBehaviour
         animator.SetTrigger("Die");
         animator.SetBool("isRunning", false);
         animator.SetBool("isAttacking", false);
-        Debug.Log("Animationtrgigerred");
 
         SpawnLoot();
     }

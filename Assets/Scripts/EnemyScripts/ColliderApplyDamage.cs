@@ -7,24 +7,17 @@ public class ColliderApplyDamage : MonoBehaviour
     private float damageAmount;
     private stone_enemy_sc enemysc;
     public bool damageApplied = false;
-    [SerializeField] private Player player;
     private void Start()
     {
-        player = GetComponent<Player>();
         enemysc = GetComponentInParent<stone_enemy_sc>();
         damageAmount = enemysc.damage;
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTriggerEnter called");
         if (!damageApplied && other.CompareTag("Player"))
         {
-            
-            Debug.Log("Collision with player detected!");
-
-            other.SendMessage("TakeDamage", damageAmount, SendMessageOptions.DontRequireReceiver);
-            damageApplied = true;  // Set the flag to true to indicate that damage has been applied
-            Debug.Log("Damage applied!");
+            Player.main.TakeDamage(damageAmount);
+            damageApplied = true;
         }
     }
 

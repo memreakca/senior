@@ -7,7 +7,10 @@ public class PickUpItem : MonoBehaviour, IInteractable
     public ItemObject item;
     public int amount;
     public InventoryObject inventory;
-
+    private void Start()
+    {
+        inventory = Player.main.inventory;
+    }
     public void Interact()
     {
         Debug.Log("interacted wtih player");

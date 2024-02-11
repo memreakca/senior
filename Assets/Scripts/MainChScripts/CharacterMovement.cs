@@ -77,7 +77,7 @@ public class CharacterMovement : MonoBehaviour
   
     public void Update()
     {
-        if(isEquipping || playerAttack.isHitting) { return; }
+        if(isEquipping || playerAttack.isHitting || !playerAttack.canMove ) { return; }
         CharacterMove();
         Equip();
        
@@ -98,7 +98,11 @@ public class CharacterMovement : MonoBehaviour
 
         animator.SetBool("isMoving", isMoving);
         Vector3 targetDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
-
+        if (isMoving)
+        {
+            rb.velocity = transform.forward * moveSpeed;
+        }
+        else rb.velocity = Vector3.zero;
         if (targetDirection != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(targetDirection, Vector3.up);

@@ -14,9 +14,15 @@ public class PlayerLevel : MonoBehaviour
     
     private void Start()
     {
+        CombatEvents.OnEnemyDeathC += EnemyToExperience;
         playerSkill = GetComponent<PlayerSkill>();
         currentLevel = 1;
         neededLvlExp = 200;
+    }
+
+    public void EnemyToExperience(IEnemy enemy)
+    {
+        GainExp(enemy.Experience);
     }
     public void GainExp(float expAmount)
     {

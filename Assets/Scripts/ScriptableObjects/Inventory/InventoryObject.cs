@@ -23,6 +23,7 @@ public class InventoryObject : ScriptableObject
     public ItemDatabaseObject database;
     public Inventory Container;
     public InventorySlot[] GetSlots { get {return Container.Items; } }
+
     public void AddItem(Item _item, int _amount)
     {
         for (int i = 0; i < Container.Items.Length; i++)

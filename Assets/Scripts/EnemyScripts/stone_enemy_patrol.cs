@@ -124,17 +124,17 @@ public class stone_enemy_patrol : MonoBehaviour
         }
     }
 
-    public void Die()
-    {
-        Debug.Log("Animationtrgigerred");
-        navMeshAgent.speed = 0;
-        animator.SetTrigger("Die");
-        animator.SetBool("isRunning", false);
-        animator.SetBool("isAttacking", false);
+    //public void Die()
+    //{
+    //    Debug.Log("Animationtrgigerred");
+    //    navMeshAgent.speed = 0;
+    //    animator.SetTrigger("Die");
+    //    animator.SetBool("isRunning", false);
+    //    animator.SetBool("isAttacking", false);
 
-        Invoke("DestroyGameObject", 2.5f);
-        instance.SpawnLoot();
-    }
+    //    Invoke("DestroyGameObject", 2.5f);
+    //    instance.SpawnLoot();
+    //}
 
 
   
@@ -180,7 +180,6 @@ public class stone_enemy_patrol : MonoBehaviour
 
         animator.SetBool("isRunning", false);
         animator.SetBool("isAttacking", true);
-        activateHandHitboxes();
         navMeshAgent.isStopped = true;
 
         if (!isAttacking)
@@ -208,7 +207,6 @@ public class stone_enemy_patrol : MonoBehaviour
         timeBetweenAttacks = 3;
         animator.SetBool("isAttacking", false);
         // Resume NavMeshAgent movement
-        deactivateHandHitboxes();
         navMeshAgent.isStopped = false;
         bool damageapplied = GetComponentInChildren<ColliderApplyDamage>().damageApplied = false;
         Debug.Log("invoked");

@@ -17,8 +17,8 @@ MonoBehaviour:
   type: 7
   description: 
   data:
-    Name: Mana Potion
-    Id: -1
+    Name: SP Potion
+    Id: 9
     buffs:
     - attribute: 6
       value: 50
