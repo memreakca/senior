@@ -1,0 +1,113 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using Unity.Mathematics;
+using UnityEditor.Experimental.GraphView;
+using UnityEngine;
+using UnityEngine.TextCore.Text;
+public class SpawnerNest : MonoBehaviour , IInteractable
+{
+    [Header("Refs")]
+    [SerializeField] private GameObject[] spiderPrefab;
+    public int numberOfEnemiesToSpawn = 10;
+    
+
+    [Header("Attiributes")]
+    [SerializeField] public float startEnemy = 8;
+    [SerializeField] public float difficultyScalingFactor = 0.25f;
+    [SerializeField] public float BaseWaveTime = 30;
+
+    public float spawnRange;
+    public float antiSpawnRange;
+    public float waveTime;
+    public float maxEnemyPerSec = 4.5f;
+    public float timeSinceLastSpawn;
+
+    public int currentWave = 1;
+    public int maxWave;
+
+    public int enemiesAlive;
+    public bool isSpawning;
+    public float enemyPerSec = 1;
+    
+
+    public void Interact()
+    {
+        StartWave();
+        SpawnEnemy();
+    }
+    private void Update()
+    {
+        if (currentWave > maxWave) { Destroy(gameObject); }
+
+        if (!isSpawning) return;
+        timeSinceLastSpawn += Time.deltaTime;
+
+        Debug.Log(timeSinceLastSpawn.ToString());
+        if (waveTime > 0)
+        {
+            waveTime -= Time.deltaTime;
+        }
+
+
+        if (timeSinceLastSpawn >= (1f / enemyPerSec) && waveTime > 0)
+        {
+            SpawnEnemy();
+            timeSinceLastSpawn = 0f;
+        }
+
+        if (enemiesAlive == 0 && waveTime <= 0)
+        {
+            EndWave();
+        }
+    }
+    private void SpawnEnemy()
+    {
+        enemiesAlive++;
+        int ix;
+        int ex ;
+
+        ix = UnityEngine.Random.Range(0, 3);
+        if (ix < 2) { ex = 0; } else ex = 1;
+
+        GameObject prefabToSpawn = spiderPrefab[ex];
+
+        Vector3 spawnPosition = GetRandomSpawnPosition();
+        Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
+    }
+    Vector3 GetRandomSpawnPosition()
+    {
+        Vector2 randomCircle = UnityEngine.Random.insideUnitCircle * spawnRange;
+        return new Vector3(randomCircle.x + transform.position.x, transform.position.y, randomCircle.y + transform.position.z);
+    }
+
+    private void StartWave()
+    {
+        isSpawning = true;
+        enemyPerSec = EnemiesPerSec();
+        waveTime = WaveTime();
+    }
+    private void EndWave()
+    {
+        Debug.Log("WaveEnded");
+        currentWave++;
+        isSpawning = false;
+        timeSinceLastSpawn = 0f;
+        Invoke("StartWave", 5);
+    }
+
+    private int WaveTime()
+    {
+        return Mathf.RoundToInt(BaseWaveTime * Mathf.Pow(currentWave, difficultyScalingFactor));
+    }
+    private float EnemiesPerSec()
+    {
+        return Mathf.Clamp(enemyPerSec * Mathf.Pow(currentWave, difficultyScalingFactor), 0f, maxEnemyPerSec);
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, spawnRange);
+    }
+}
