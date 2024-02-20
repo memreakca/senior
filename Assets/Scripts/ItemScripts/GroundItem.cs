@@ -5,11 +5,16 @@ using UnityEngine;
 
 public class GroundItem : MonoBehaviour , IInteractable
 {
+    public static GroundItem Instance;
     public ItemObject item;
     public int lootamount;
     public GameObject lootPackage;
     public InventoryObject inventory;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
     public void Interact()
     {
         Debug.Log("interacted wtih player");
