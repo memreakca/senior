@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     public Image selectedHpConsumable;
     public Image selectedSpConsumable;
 
+    private int boostedINT, boostedAGl, boostedDEF, boostedSTR ,boostedVIT;
+    private float boostCooldown;
 
     [Header("Used Values")]
     public float HP = 100;
@@ -106,6 +108,16 @@ public class Player : MonoBehaviour
 
     }
 
+    public void BoostStats(float cooldown)
+    {
+        boostCooldown = cooldown;
+        boostedINT = baseintelligence *2;
+        boostedAGl = baseagility *2;
+        boostedDEF = baseDefense *2;
+        boostedSTR = basestrength *2;
+        boostedVIT = basevitality * 2;
+
+    }
 
     private ItemObject GetConsumableHPItem()
     {
@@ -274,20 +286,30 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.J))
-        //{
-        //    questList.mainQuestObjects[0].CompleteQuest();
-        //}
-        UpdateSelectedConsumableUI();
-        if (Input.GetKeyDown(KeyCode.L))
+        if (boostCooldown > 0)
         {
+            boostCooldown -= Time.deltaTime;
+        }
+        else if ( boostCooldown <=  0 && boostCooldown != -1)
+        {
+            boostCooldown = -1;
+            UpdateValues();
+        }
+
+
+        UpdateSelectedConsumableUI();
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (!inventory.HasItemType(ItemType.ConsumableHP)) { Debug.Log("No Consumable Hp Item"); return; }
             ItemObject consumableItem = GetConsumableHPItem();
             int amountToUse = 1;
             UseConsumableHPItem(consumableItem, amountToUse);
         }
 
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
+            if (!inventory.HasItemType(ItemType.ConsumableSP)) { Debug.Log("No Consumable Sp Item"); return; }
             ItemObject consumableItem = GetConsumableSPItem();
             int amountToUse = 1;
             UseConsumableSPItem(consumableItem, amountToUse);
@@ -337,6 +359,8 @@ public class Player : MonoBehaviour
         if (maxHP < HP) { HP = maxHP; }
         if (maxSP < SP ) { SP = maxSP; } 
 
+     
+
         for (int i = 0; i < attributes.Length; i++)
         {
             switch (attributes[i].type)
@@ -348,16 +372,36 @@ public class Player : MonoBehaviour
                 case Attributes.Vitality: mdfvitality = attributes[i].value.modifiedValue; break;
             }
         }
-        DEF = baseDefense + mdfDefense;
-        maxHP = baseHP + mdfHP;
-        maxSP = baseSP + mdfSP;
-        STR = basestrength + mdfstrength;
-        VIT = basevitality + mdfvitality;
-        INT = baseintelligence + mdfintelligence;
-        AGL = baseagility + mdfagility;
-        if (AGL > 10) { hpRegen = AGL * 0.6f; } else hpRegen = AGL * 0.2f;
-        if (INT > 10) { spRegen = INT * 0.6f; } else spRegen = INT * 0.2f;
-        UpdateStaticInterface();
+
+        if (boostCooldown > 0)
+        {
+            DEF = boostedDEF + mdfDefense;
+            maxHP = baseHP + mdfHP;
+            maxSP = baseSP + mdfSP;
+            STR = boostedSTR + mdfstrength;
+            VIT = boostedVIT + mdfvitality;
+            INT = boostedINT + mdfintelligence;
+            AGL = boostedAGl + mdfagility;
+            if (AGL > 10) { hpRegen = AGL * 0.6f; } else hpRegen = AGL * 0.2f;
+            if (INT > 10) { spRegen = INT * 0.6f; } else spRegen = INT * 0.2f;
+            UpdateStaticInterface();
+        }
+        else
+
+        {
+            DEF = baseDefense + mdfDefense;
+            maxHP = baseHP + mdfHP;
+            maxSP = baseSP + mdfSP;
+            STR = basestrength + mdfstrength;
+            VIT = basevitality + mdfvitality;
+            INT = baseintelligence + mdfintelligence;
+            AGL = baseagility + mdfagility;
+            if (AGL > 10) { hpRegen = AGL * 0.6f; } else hpRegen = AGL * 0.2f;
+            if (INT > 10) { spRegen = INT * 0.6f; } else spRegen = INT * 0.2f;
+            UpdateStaticInterface();
+
+        }
+        
     }
 
     internal void UpdateBaseStats()

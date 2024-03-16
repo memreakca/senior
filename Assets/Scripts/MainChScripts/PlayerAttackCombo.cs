@@ -4,16 +4,24 @@ using UnityEngine;
 
 public class PlayerAttackCombo : MonoBehaviour
 {
+    public static PlayerAttackCombo main;
     private CharacterMovement chmov;
-
+    [SerializeField] public GameObject sword;
+    private BoxCollider SwordHitbox;
+    
     private Animator animator;
 
     public bool canMove;
     public bool isHitting;
     public float timeSinceAttack;
     public int currentAttack = 1;
+    private void Awake()
+    {
+        main = this;
+    }
     private void Start()
     {
+        SwordHitbox = sword.GetComponent<BoxCollider>();
         canMove = true;
         isHitting = false;
         animator = GetComponent<Animator>();
@@ -58,6 +66,17 @@ public class PlayerAttackCombo : MonoBehaviour
         }
 
     }
+
+    public void ActivateSwordHitbox()
+    {
+        SwordHitbox.enabled = true;
+    }
+    public void DeactivateSwordHitbox()
+    {
+        SwordHitbox.enabled = false;
+    }
+
+
     public void ResetHit()
     {
         isHitting = false;

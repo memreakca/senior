@@ -39,10 +39,11 @@ public class PlayerSkill : MonoBehaviour
     private void Update()
     {
         unusedSkillpointTXT.text = $"Unused Skill Points = {unusedSkillPoints}";
+        if (CharacterMovement.main.isEquipping || PlayerAttackCombo.main.isHitting) return;
+        
         Skill1Button();
         Skill2Button();
         Skill3Button();
-        Skill4Button();
     }
     private void Awake()
     {
@@ -125,13 +126,6 @@ public class PlayerSkill : MonoBehaviour
             skillFunctionality.UseSkill3();
         }
     }
-    public void Skill4Button()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            skillFunctionality.UseSkill4();
-        }
-    }
 
 }
 [System.Serializable]
@@ -139,6 +133,7 @@ public class Skill
 {
     public string name;
     public float maxCooldown;
+    public float damage;
     public float cooldown;
     public int level;
     public int maxLevel = 5;

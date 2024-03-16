@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,53 +13,96 @@ public class spider_enemy_sc : MonoBehaviour, IEnemy
 
     [SerializeField] private ItemObject lootItem;
     [SerializeField] private GroundItem lootPackage;
-    public Transform player;
 
-    public float currentHp;
+    public float timeBetweenAttacks = 2f;
+    public float attackCd;
+    private SphereCollider attackHitbox;
+    public Transform player;
+    [SerializeField] public float damage = 30f;
+    public float attackRange;
+    public bool isAttacking;
+    public bool isdead =false;
+    public float hp;
     public int maxHp;
     private NavMeshAgent navMeshAgent;
+    public bool isMoving = true;
+    public EnemyTakeDamage enemytakendmg;
     private void Start()
     {
+        float dmg = GetComponentInChildren<ColliderApplyDamage>().damageAmount = damage;
+        attackCd = timeBetweenAttacks;
         Experience = 200;
         EnemyID = 2;
+        hp = maxHp;
+        enemytakendmg = GetComponent<EnemyTakeDamage>();
+        enemytakendmg.maxHp = maxHp;
+        enemytakendmg.currentHp = hp;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         anim = GetComponent<Animator>();
         lootItem = Player.main.inventory.database.Items[7];
         navMeshAgent = GetComponent<NavMeshAgent>();
+        attackHitbox = GetComponentInChildren<SphereCollider>();
     }
     private void Update()
     {
-        navMeshAgent.SetDestination(player.position);
+        if (isdead) return;
+        if (enemytakendmg.currentHp <= 0) Die();
+        attackCd -= Time.deltaTime;
 
-        if(Input.GetKeyDown(KeyCode.M)) { TakeDamage(5); }
+        MoveTowardsPlayer();
+        CheckForAttack();
+        
     }
-  
+
+    public void EnableHitbox()
+    {
+        attackHitbox.enabled = true;
+    }
+
+    public void DisableHitbox()
+    {
+        attackHitbox.enabled = false;
+    }
     public void Attack()
     {
-        anim.SetTrigger("Attack");
+        transform.LookAt(player);
+        anim.SetBool("isAttacking", true);
+        anim.SetBool("isMoving", false);
+        isAttacking = true;
+        isMoving = false;
+        navMeshAgent.isStopped = true;
     }
 
     public void Die()
     {
+        isdead = true;
         CombatEvents.EnemyDied(this);
         anim.SetTrigger("Die");
         int randomNumber = Random.Range(1, 101);
         if (randomNumber < 6) { SpawnLoot(); }
+        SpawnerNest.Instance.enemiesAlive--;
 
     }
 
-    public void TakeDamage(float damage)
+    public void MoveTowardsPlayer()
     {
-        currentHp -= damage;
-        if (currentHp <= 0)
+        if (isdead || isAttacking) { return; }
+
+        navMeshAgent.SetDestination(player.position);
+        anim.SetBool("isMoving", true);
+    }
+ 
+    void CheckForAttack()
+    {
+        if(isAttacking) { return; }
+        if (Vector3.Distance(transform.position, player.position) < attackRange)
         {
-            navMeshAgent.speed = 0;
-            Die();
-            return;
+
+            if (attackCd > 0) { anim.SetBool("isMoving", false); anim.SetBool("isAttacking", false); return; }
+            Attack();
         }
     }
-
-    public void SpawnLoot()
+        public void SpawnLoot()
     {
         Vector3 lootPosition = transform.position + new Vector3(0, 1, 0);
         var obj = Instantiate(lootPackage.lootPackage, lootPosition, Quaternion.identity);
@@ -69,5 +113,23 @@ public class spider_enemy_sc : MonoBehaviour, IEnemy
     public void DestoryGameObject()
     {
         Destroy(gameObject);
+    }
+
+    public void FinishAtttack()
+    {
+        navMeshAgent.isStopped = false;
+        attackCd = timeBetweenAttacks;
+        isMoving = true;
+        isAttacking = false;
+        anim.SetBool("isAttacking", false);
+        anim.SetBool("isMoving", true);    
+        bool damageapplied = GetComponentInChildren<ColliderApplyDamage>().damageApplied = false;
+       
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }

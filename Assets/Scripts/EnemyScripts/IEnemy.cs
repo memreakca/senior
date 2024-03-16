@@ -6,7 +6,5 @@ public interface IEnemy
 {
     int EnemyID { get; set; }
     int Experience { get; set; }
-    void Die();
-    void TakeDamage(float damage);
     void Attack();
 }

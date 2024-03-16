@@ -23,18 +23,24 @@ public class stone_enemy_patrol : MonoBehaviour
     private bool isWaiting;
     private bool isAttacking;
     private SphereCollider handhitbox;
+    public float doubledSightRange;
+    public float normalSightRange;
 
     
 
 
     void Start()
     {
+        
+        normalSightRange = sightRange;
+        doubledSightRange = sightRange * 2;
         handhitbox = GetComponentsInChildren<SphereCollider>()[0];
         handhitbox.enabled = false;
         instance = gameObject.GetComponent<stone_enemy_sc>(); 
         player = GameObject.FindGameObjectWithTag("Player").transform;
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        navMeshAgent.stoppingDistance = attackRange;
 
         if (navMeshAgent == null)
         {
@@ -72,6 +78,7 @@ public class stone_enemy_patrol : MonoBehaviour
     {
         if (CanSeePlayer())
         {
+            sightRange = doubledSightRange;
             navMeshAgent.SetDestination(player.position);
 
             animator.SetBool("isRunning", true);
@@ -83,7 +90,6 @@ public class stone_enemy_patrol : MonoBehaviour
         }
         else
         {
-
             navMeshAgent.isStopped = true;
 
             animator.SetBool("isRunning", false);
@@ -96,6 +102,8 @@ public class stone_enemy_patrol : MonoBehaviour
     }
     void Patrol()
     {
+        sightRange = normalSightRange;
+
         if (isWaiting)
         {
             // Continue waiting for the timer
@@ -123,19 +131,6 @@ public class stone_enemy_patrol : MonoBehaviour
             navMeshAgent.isStopped = false;
         }
     }
-
-    //public void Die()
-    //{
-    //    Debug.Log("Animationtrgigerred");
-    //    navMeshAgent.speed = 0;
-    //    animator.SetTrigger("Die");
-    //    animator.SetBool("isRunning", false);
-    //    animator.SetBool("isAttacking", false);
-
-    //    Invoke("DestroyGameObject", 2.5f);
-    //    instance.SpawnLoot();
-    //}
-
 
   
     void SetRandomPatrolDestination()
@@ -177,7 +172,7 @@ public class stone_enemy_patrol : MonoBehaviour
     void AttackPlayer()
     {
         // Implement your attack logic here
-
+        transform.LookAt(player);
         animator.SetBool("isRunning", false);
         animator.SetBool("isAttacking", true);
         navMeshAgent.isStopped = true;
@@ -202,16 +197,12 @@ public class stone_enemy_patrol : MonoBehaviour
     }
     void FinishAttack()
     {
-        // This function is called when the attack animation duration is complete
+
         isAttacking= false;
         timeBetweenAttacks = 3;
         animator.SetBool("isAttacking", false);
-        // Resume NavMeshAgent movement
         navMeshAgent.isStopped = false;
         bool damageapplied = GetComponentInChildren<ColliderApplyDamage>().damageApplied = false;
-        Debug.Log("invoked");
-
-        // You can add additional logic here if needed
     }
 
 

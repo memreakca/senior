@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class CharacterMovement : MonoBehaviour
 {
+    public static CharacterMovement main;
     [SerializeField] private LayerMask targetmask;
     public Cinemachine.CinemachineVirtualCamera virtualCamera;
 
@@ -25,8 +26,10 @@ public class CharacterMovement : MonoBehaviour
     public bool onMelee = false;
     public bool isEquipping;
     public bool isEquipped;
-
-    
+    private void Awake()
+    {
+        main = this;
+    }
     private void Equip()
     {
             if (Input.GetKeyUp(KeyCode.Tab) && !isMoving)
@@ -82,6 +85,7 @@ public class CharacterMovement : MonoBehaviour
         Equip();
        
     }
+
     public void CharacterMove()
     {
         if (playerAttack.isHitting) return;

@@ -9,7 +9,7 @@ public class PickUpItem : MonoBehaviour, IInteractable
     public InventoryObject inventory;
     private void Start()
     {
-        inventory = Player.main.inventory;
+
     }
     public void Interact()
     {

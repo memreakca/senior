@@ -12,10 +12,15 @@ public class SkillFunctionality : MonoBehaviour
     Skill skill3;
     Skill skill4;
 
+    public PlayerSwordDamage playerSwordDamage;
     BarScripts barScripts;
 
+    public Animator animator;
     private void Start()
     {
+        playerSwordDamage = PlayerAttackCombo.main.sword.GetComponent<PlayerSwordDamage>();
+
+        animator = GetComponent<Animator>();
         barScripts = GetComponent<BarScripts>();
         playerSkill = GetComponent<PlayerSkill>();
         skill1 = playerSkill.skill1;
@@ -39,20 +44,49 @@ public class SkillFunctionality : MonoBehaviour
 
     public void UseSkill1()
     {
-        if (skill1.cooldown == 0) Debug.Log("Skill 1 used!"); else return;
+        
+        if (skill1.cooldown <= 0 && CharacterMovement.main.onMelee)
+        {
+            playerSwordDamage.damageAmount = skill1.damage;
+            CharacterMovement.main.LookAtMouse();
+            animator.SetTrigger("MeleeSkill1");
+            PlayerAttackCombo.main.isHitting = true;
+            PlayerAttackCombo.main.canMove = false;
+        }
+        else return;
+
         skill1.SetCooldown();
         barScripts.SetCooldownSkill1(skill1);
     }
 
     public void UseSkill2()
     {
-        if (skill2.cooldown == 0) Debug.Log("Skill 2 used!"); else return;
+        if (skill2.cooldown <= 0 && CharacterMovement.main.onMelee)
+        {
+            CharacterMovement.main.LookAtMouse();
+            animator.SetTrigger("MeleeSkill2");
+            PlayerAttackCombo.main.isHitting = true;
+            PlayerAttackCombo.main.canMove = false;
+        }
+        else return;
+
         skill2.SetCooldown();
         barScripts.SetCooldownSkill2(skill2);
     }
     public void UseSkill3() 
-    { 
-        if (skill3.cooldown == 0) Debug.Log("Skill 3 used!"); else return;
+    {
+        if (skill3.cooldown <= 0 && CharacterMovement.main.onMelee)
+        {
+            
+            int duration = skill3.level + 5;
+            animator.SetTrigger("MeleeSkill3");
+            Player.main.BoostStats(duration);
+            PlayerAttackCombo.main.isHitting = true;
+            PlayerAttackCombo.main.canMove = false;
+            Player.main.UpdateValues();
+        }
+        else return;
+
         skill3.SetCooldown();
         barScripts.SetCooldownSkill3(skill3);
     }
@@ -81,7 +115,6 @@ public class SkillFunctionality : MonoBehaviour
         {
             skill.cooldown -= Time.deltaTime;
             skill.cooldown = Mathf.Max(0, skill.cooldown);
-            Debug.Log($"Cooldown for {skill.name} reset. New cooldown: {skill.cooldown}");
         }
        
     }

@@ -4,14 +4,9 @@ using UnityEngine;
 
 public class ColliderApplyDamage : MonoBehaviour
 {
-    private float damageAmount;
-    private stone_enemy_sc enemysc;
+    public float damageAmount;
     public bool damageApplied = false;
-    private void Start()
-    {
-        enemysc = GetComponentInParent<stone_enemy_sc>();
-        damageAmount = enemysc.damage;
-    }
+  
     private void OnTriggerEnter(Collider other)
     {
         if (!damageApplied && other.CompareTag("Player"))
@@ -20,5 +15,4 @@ public class ColliderApplyDamage : MonoBehaviour
             damageApplied = true;
         }
     }
-
 }

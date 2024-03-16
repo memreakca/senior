@@ -14,8 +14,7 @@ public class stone_enemy_sc : MonoBehaviour , IEnemy
     public float maxhp;
     public float hp;
     public float damage;
-
-    public Image hpbar;
+    public EnemyTakeDamage enemytakendmg;
     private NavMeshAgent navMeshAgent;
     public bool isdead = false;
 
@@ -26,8 +25,11 @@ public class stone_enemy_sc : MonoBehaviour , IEnemy
 
     private void Start()
     {
+        enemytakendmg = GetComponent<EnemyTakeDamage>();
+        enemytakendmg.maxHp = maxhp;
+        enemytakendmg.currentHp = hp;
+
         navMeshAgent = GetComponent<NavMeshAgent>();
-        hpbar = gameObject.GetComponentInChildren<Image>();
         EnemyID = 1;
         Experience = 200;
     }
@@ -39,24 +41,7 @@ public class stone_enemy_sc : MonoBehaviour , IEnemy
     private void Update()
     {
         if (isdead) return;
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            TakeDamage(20);
-            
-        }
-        hpbar.fillAmount = hp / maxhp;   
-      
-    }
-
-    public void TakeDamage(float damage)
-    {
-        hp -= damage;
-        if (hp <= 0)
-        {
-            Die();
-            return;
-        }
-        animator.SetTrigger("Hit");
+        if (enemytakendmg.currentHp <= 0) Die();
     }
 
     public void Attack()

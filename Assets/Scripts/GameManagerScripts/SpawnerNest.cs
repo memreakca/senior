@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.TextCore.Text;
 public class SpawnerNest : MonoBehaviour , IInteractable
 {
+    public static SpawnerNest Instance;
     [Header("Refs")]
     [SerializeField] private GameObject[] spiderPrefab;
     public int numberOfEnemiesToSpawn = 10;
@@ -29,8 +30,11 @@ public class SpawnerNest : MonoBehaviour , IInteractable
     public int enemiesAlive;
     public bool isSpawning;
     public float enemyPerSec = 1;
-    
 
+    private void Awake()
+    {
+        Instance = this;
+    }
     public void Interact()
     {
         StartWave();

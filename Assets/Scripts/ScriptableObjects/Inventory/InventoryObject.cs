@@ -8,6 +8,8 @@ using JetBrains.Annotations;
 using System.Runtime.Serialization;
 using static UnityEditor.Progress;
 using System.Security.Cryptography;
+using System;
+using UnityEditor.Experimental.GraphView;
 
 public enum InterfaceType
 {
@@ -81,6 +83,20 @@ public class InventoryObject : ScriptableObject
         }
         return false;
     }
+    public bool HasItemType(Enum type)
+    {
+        
+        for (int i = 0; i < GetSlots.Length; i++)
+        {
+            if (GetSlots[i].ItemObject == null) continue;
+            if (GetSlots[i].ItemObject.type.Equals(type))   
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void SwapItems(InventorySlot item1,InventorySlot item2)
     {
         if(item2.CanPlaceInSlot(item1.ItemObject) && item1.CanPlaceInSlot(item2.ItemObject))
@@ -211,7 +227,7 @@ public class InventorySlot
     public Item item = new Item();
     public int amount;
 
-    public ItemObject ItemObject // item objecti çaðýrma 
+    public ItemObject ItemObject  
     {
         get
         {
