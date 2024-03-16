@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 933618038174733724}
   m_Layer: 7
   m_Name: "g\xF6zler"
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -537,8 +537,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57bed4c5dde7c96468af367e278a38a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageAmount: 100
   damageApplied: 0
-  player: {fileID: 0}
 --- !u!1 &4369629923189435865
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,7 +711,7 @@ GameObject:
   - component: {fileID: 3182545780089204829}
   m_Layer: 5
   m_Name: hp bar
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -993,7 +993,7 @@ GameObject:
   - component: {fileID: 2197516018742017561}
   m_Layer: 7
   m_Name: bitkiler
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1148,7 +1148,7 @@ GameObject:
   - component: {fileID: 3067383773569787338}
   m_Layer: 7
   m_Name: mixamorig:Hips
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1183,7 +1183,7 @@ GameObject:
   - component: {fileID: 2724368938328952677}
   m_Layer: 7
   m_Name: LP
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1454,6 +1454,7 @@ GameObject:
   - component: {fileID: 6783821764981546364}
   - component: {fileID: 1728700113229546688}
   - component: {fileID: 7264328092615626406}
+  - component: {fileID: 1363954737493742614}
   - component: {fileID: 6517033766466312950}
   - component: {fileID: 7426465643702258474}
   - component: {fileID: 5513139043512836522}
@@ -1521,7 +1522,7 @@ MonoBehaviour:
   maxhp: 100
   hp: 100
   damage: 100
-  hpbar: {fileID: 0}
+  enemytakendmg: {fileID: 0}
   isdead: 0
   lootItem: {fileID: 11400000, guid: 71f28efe6c5e3ca47861c216f7acc658, type: 2}
   lootPackage: {fileID: 8950654013723292086, guid: 5e135b68dcc311e4a87720cd37aa12f4,
@@ -1529,6 +1530,22 @@ MonoBehaviour:
   OnEnemyDeath:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1363954737493742614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8747030228301156626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6775eecf4d47da440a55935e457c53b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 0
+  currentHp: 0
+  anim: {fileID: 0}
+  hpbar: {fileID: 0}
 --- !u!114 &6517033766466312950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1549,6 +1566,8 @@ MonoBehaviour:
   timeBetweenAttacks: 3
   instance: {fileID: 0}
   patrolPoint: {fileID: 0}
+  doubledSightRange: 0
+  normalSightRange: 0
 --- !u!195 &7426465643702258474
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1586,12 +1605,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 2.399112, z: 1}
-  m_Center: {x: 2.9415043e-10, y: 1.1959052, z: -0.0000000018766895}
+  m_Size: {x: 1.5072099, y: 2.3991117, z: 1}
+  m_Center: {x: 0.05136064, y: 1.1959053, z: -0.0000000023831237}
 --- !u!1 &8947079166949045267
 GameObject:
   m_ObjectHideFlags: 0
@@ -1638,7 +1657,7 @@ GameObject:
   - component: {fileID: 8432163239939742558}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

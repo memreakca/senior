@@ -14,11 +14,13 @@ public class FireBall : MonoBehaviour
 
     [SerializeField]public float baseDamage = 15;
     public float damage;
+    public bool damageApplied;
 
+    private void Start()
+    {
+        damage = baseDamage + Player.main.INT * 5;
+    }
 
-    
-
-    // Set the direction of the fireball
     public void SetDirection(Vector3 newDirection)
     {
         newDirection.y = 0;
@@ -43,14 +45,13 @@ public class FireBall : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (!damageApplied && other.CompareTag("Enemy"))
         {
-            Debug.Log("coLLÝDED WÝTH ENEMY");
-            damage = baseDamage + Player.main.INT * 5;
-            other.GetComponent<stone_enemy_sc>().TakeDamage(damage);
+            other.GetComponent<EnemyTakeDamage>().TakeDamage(damage);
+            damageApplied = true;
         }
     }
-
 }
