@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class PlayerAttackCombo : MonoBehaviour
@@ -8,8 +9,13 @@ public class PlayerAttackCombo : MonoBehaviour
     private CharacterMovement chmov;
     [SerializeField] public GameObject sword;
     private BoxCollider SwordHitbox;
-    
+    public PlayerSwordDamage playerSwordDamage;
+
     private Animator animator;
+
+    [SerializeField] public float hit1Damage;
+    [SerializeField] public float hit2Damage;
+    [SerializeField] public float hit3Damage;
 
     public bool canMove;
     public bool isHitting;
@@ -21,6 +27,7 @@ public class PlayerAttackCombo : MonoBehaviour
     }
     private void Start()
     {
+        playerSwordDamage = sword.GetComponent<PlayerSwordDamage>();
         SwordHitbox = sword.GetComponent<BoxCollider>();
         canMove = true;
         isHitting = false;
@@ -43,7 +50,6 @@ public class PlayerAttackCombo : MonoBehaviour
         if(Input.GetMouseButton(0) && timeSinceAttack > 0.4f)
         {
             chmov.LookAtMouse();
-            Debug.Log(currentAttack.ToString());
             currentAttack++;
             canMove = false;
             isHitting = true;
@@ -61,12 +67,29 @@ public class PlayerAttackCombo : MonoBehaviour
             }
 
             animator.SetTrigger("MeleeAttack" + currentAttack);
+            setComboDamage();
+            Debug.Log(currentAttack.ToString() + " DMG" + playerSwordDamage.damageAmount.ToString());
 
             timeSinceAttack = 0f;
         }
 
     }
 
+    public void setComboDamage()
+    {
+        if(currentAttack == 1)
+        {
+            playerSwordDamage.damageAmount = hit1Damage;
+        }
+        else if (currentAttack == 2)
+        {
+            playerSwordDamage.damageAmount = hit2Damage;
+        }
+        else if (currentAttack == 3)
+        {
+            playerSwordDamage.damageAmount = hit3Damage;
+        }
+    }
     public void ActivateSwordHitbox()
     {
         SwordHitbox.enabled = true;

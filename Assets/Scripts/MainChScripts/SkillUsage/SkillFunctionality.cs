@@ -63,6 +63,7 @@ public class SkillFunctionality : MonoBehaviour
     {
         if (skill2.cooldown <= 0 && CharacterMovement.main.onMelee)
         {
+            playerSwordDamage.damageAmount = skill2.damage;
             CharacterMovement.main.LookAtMouse();
             animator.SetTrigger("MeleeSkill2");
             PlayerAttackCombo.main.isHitting = true;

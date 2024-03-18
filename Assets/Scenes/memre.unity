@@ -350,7 +350,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   m_LocalRotation: {x: 0.46174863, y: 0, z: 0, w: 0.8870109}
-  m_LocalPosition: {x: 0.02312516, y: 20.617075, z: -5.3234415}
+  m_LocalPosition: {x: -12.334749, y: 20.490877, z: -28.930012}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1854,7 +1854,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1946163008}
   m_LocalRotation: {x: 0.46174863, y: 0, z: 0, w: 0.8870109}
-  m_LocalPosition: {x: 0.02312516, y: 20.617075, z: -5.3234415}
+  m_LocalPosition: {x: -12.334749, y: 20.490877, z: -28.930012}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10278,36 +10278,6 @@ PrefabInstance:
       propertyPath: selectedSpConsumable
       value: 
       objectReference: {fileID: 1140015098244692854}
-    - target: {fileID: 1985692981027561939, guid: e88bf2a22d66b6048817fdbb65c66629,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.0017015164
-      objectReference: {fileID: 0}
-    - target: {fileID: 1985692981027561939, guid: e88bf2a22d66b6048817fdbb65c66629,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.036769234
-      objectReference: {fileID: 0}
-    - target: {fileID: 1985692981027561939, guid: e88bf2a22d66b6048817fdbb65c66629,
-        type: 3}
-      propertyPath: m_Size.z
-      value: 0.021984378
-      objectReference: {fileID: 0}
-    - target: {fileID: 1985692981027561939, guid: e88bf2a22d66b6048817fdbb65c66629,
-        type: 3}
-      propertyPath: m_Center.x
-      value: -0.000023148777
-      objectReference: {fileID: 0}
-    - target: {fileID: 1985692981027561939, guid: e88bf2a22d66b6048817fdbb65c66629,
-        type: 3}
-      propertyPath: m_Center.y
-      value: -0.0015619108
-      objectReference: {fileID: 0}
-    - target: {fileID: 1985692981027561939, guid: e88bf2a22d66b6048817fdbb65c66629,
-        type: 3}
-      propertyPath: m_Center.z
-      value: -0.004724357
-      objectReference: {fileID: 0}
     - target: {fileID: 5098430652932320895, guid: e88bf2a22d66b6048817fdbb65c66629,
         type: 3}
       propertyPath: CraftingUI
@@ -10381,11 +10351,6 @@ PrefabInstance:
     - target: {fileID: 5334760619883875269, guid: e88bf2a22d66b6048817fdbb65c66629,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5351858227965393110, guid: e88bf2a22d66b6048817fdbb65c66629,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6661748638726126638, guid: e88bf2a22d66b6048817fdbb65c66629,
@@ -10477,16 +10442,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: playerModel
-      objectReference: {fileID: 0}
-    - target: {fileID: 8854771052372282797, guid: e88bf2a22d66b6048817fdbb65c66629,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9096489625610426389, guid: e88bf2a22d66b6048817fdbb65c66629,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

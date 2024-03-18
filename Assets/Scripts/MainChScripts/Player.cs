@@ -14,9 +14,14 @@ public class Player : MonoBehaviour
     public InventoryObject inventory;
     public InventoryObject equipment;
     public QuestListObject questList;
+    public PlayerSwordDamage playerSwordDamage;
     public BarScripts healthbar;
     public BarScripts manabar;
     public TextMeshProUGUI staticInterfaceTXT;
+
+    public GameObject buffeffect;
+    public GameObject HealingEffect;
+    public GameObject ManaEffect;
 
     public Image selectedHpConsumable;
     public Image selectedSpConsumable;
@@ -150,16 +155,14 @@ public class Player : MonoBehaviour
     {
         if (consumableItem.type == ItemType.ConsumableHP)
         {
-            // Check if the consumable item has buffs
             if (consumableItem.data.buffs != null && consumableItem.data.buffs.Length > 0)
             {
                 foreach (var buff in consumableItem.data.buffs)
                 {
-                    // Apply the buff to the player's attributes or health, depending on the attribute type
                     switch (buff.attribute)
                     {
                         case Attributes.HP:
-                            // Add health point
+
                             IncreaseHealth(buff.value * amount);
                             break;
                         default:
@@ -173,16 +176,13 @@ public class Player : MonoBehaviour
     {
         if (consumableItem.type == ItemType.ConsumableSP)
         {
-            // Check if the consumable item has buffs
             if (consumableItem.data.buffs != null && consumableItem.data.buffs.Length > 0)
             {
                 foreach (var buff in consumableItem.data.buffs)
                 {
-                    // Apply the buff to the player's attributes or health, depending on the attribute type
                     switch (buff.attribute)
                     {
                         case Attributes.SP:
-                            // Add health point
                             IncreaseMana(buff.value * amount);
                             break;
                         default:
@@ -195,14 +195,34 @@ public class Player : MonoBehaviour
 
     private void IncreaseHealth(float amount)
     {
-        HP += amount;
-        HP = Mathf.Clamp(HP, 0, maxHP);
+        HealingEffect.SetActive(true);
+        HP += amount / 2;
+        StartCoroutine(IncreaseHealthCoroutine(amount));
+    }
+
+    private System.Collections.IEnumerator IncreaseHealthCoroutine(float amount)
+    { 
+        yield return new WaitForSeconds(1f); 
+
+        HP += amount/2;
+        HP = Mathf.Clamp(HP, 0, maxHP); 
+        HealingEffect.SetActive(false); 
     }
 
     private void IncreaseMana(float amount)
     {
-        SP += amount;
+        ManaEffect.SetActive(true);
+        SP += amount / 2;
+        StartCoroutine(IncreaseManaCoroutine(amount));
+    }
+
+    private System.Collections.IEnumerator IncreaseManaCoroutine(float amount)
+    {
+        yield return new WaitForSeconds(1f);
+
+        SP += amount / 2;
         SP = Mathf.Clamp(SP, 0, maxSP);
+        ManaEffect.SetActive(false);
     }
     private void UpdateSelectedConsumableUI()
     {
@@ -288,10 +308,12 @@ public class Player : MonoBehaviour
     {
         if (boostCooldown > 0)
         {
+            buffeffect.SetActive(true);
             boostCooldown -= Time.deltaTime;
         }
         else if ( boostCooldown <=  0 && boostCooldown != -1)
         {
+            buffeffect.SetActive(false);
             boostCooldown = -1;
             UpdateValues();
         }
